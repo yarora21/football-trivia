@@ -1,0 +1,127 @@
+{
+  "/TriviaOrchestration": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:20:27)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaOrchestration/StateMachineArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "StateMachineArn"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new OrchestrationStack (/Users/yasharora/Documents/football-trvia/infra/lib/orchestration-stack.ts:81:5)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:20:27)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaOrchestration/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaOrchestration/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaOrchestration/RoomCreationPipeline/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoomCreationPipelineA2F13C17"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new StateMachine2 in aws-cdk-lib...",
+        "new OrchestrationStack (/Users/yasharora/Documents/football-trvia/infra/lib/orchestration-stack.ts:71:26)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:20:27)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaOrchestration/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaOrchestration/Exports/Output{\"Ref\":\"RoomCreationPipelineA2F13C17\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefRoomCreationPipelineA2F13C176895E8FD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaOrchestration/RoomCreationPipeline/Role/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoomCreationPipelineRole8EC6B57F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new StateMachine2 in aws-cdk-lib...",
+        "new OrchestrationStack (/Users/yasharora/Documents/football-trvia/infra/lib/orchestration-stack.ts:71:26)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:20:27)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaOrchestration/RoomCreationPipeline/Role/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "RoomCreationPipelineRoleDefaultPolicyD15CF78C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new StateMachine2 in aws-cdk-lib...",
+        "new OrchestrationStack (/Users/yasharora/Documents/football-trvia/infra/lib/orchestration-stack.ts:71:26)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:20:27)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ]
+}

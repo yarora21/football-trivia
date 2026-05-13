@@ -1,0 +1,247 @@
+{
+ "Resources": {
+  "RoomCreationPipelineRole8EC6B57F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaOrchestration/RoomCreationPipeline/Role/Resource"
+   }
+  },
+  "RoomCreationPipelineRoleDefaultPolicyD15CF78C": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfFetchDataFunction42E4A608ArnE992E03C"
+        },
+        {
+         "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfGenerateQuestionsFunction25E2DE49Arn85C22FEB"
+        },
+        {
+         "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfMarkFailedFunction4B1C21C0Arn1239A168"
+        },
+        {
+         "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfPersistQuestionsFunction2B4F1915Arn38C2B665"
+        },
+        {
+         "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfValidateQuestionsFunction67228D0CArn7275C997"
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfFetchDataFunction42E4A608ArnE992E03C"
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfGenerateQuestionsFunction25E2DE49Arn85C22FEB"
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfMarkFailedFunction4B1C21C0Arn1239A168"
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfPersistQuestionsFunction2B4F1915Arn38C2B665"
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfValidateQuestionsFunction67228D0CArn7275C997"
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RoomCreationPipelineRoleDefaultPolicyD15CF78C",
+    "Roles": [
+     {
+      "Ref": "RoomCreationPipelineRole8EC6B57F"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaOrchestration/RoomCreationPipeline/Role/DefaultPolicy/Resource"
+   }
+  },
+  "RoomCreationPipelineA2F13C17": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"StartAt\":\"FetchFootballData\",\"States\":{\"FetchFootballData\":{\"Next\":\"GenerateQuestions\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2},{\"ErrorEquals\":[\"States.TaskFailed\"],\"MaxAttempts\":2,\"BackoffRate\":2}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"Next\":\"MarkRoomFailed\"}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfFetchDataFunction42E4A608ArnE992E03C"
+       },
+       "\",\"Payload.$\":\"$\"}},\"GenerateQuestions\":{\"Next\":\"ValidateQuestions\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2},{\"ErrorEquals\":[\"States.TaskFailed\"],\"MaxAttempts\":1}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"Next\":\"MarkRoomFailed\"}],\"Type\":\"Task\",\"TimeoutSeconds\":60,\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfGenerateQuestionsFunction25E2DE49Arn85C22FEB"
+       },
+       "\",\"Payload.$\":\"$\"}},\"ValidateQuestions\":{\"Next\":\"PersistQuestions\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Catch\":[{\"ErrorEquals\":[\"QuestionsFailedValidation\"],\"Next\":\"GenerateQuestions\"}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfValidateQuestionsFunction67228D0CArn7275C997"
+       },
+       "\",\"Payload.$\":\"$\"}},\"PersistQuestions\":{\"Next\":\"Done\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfPersistQuestionsFunction2B4F1915Arn38C2B665"
+       },
+       "\",\"Payload.$\":\"$\"}},\"Done\":{\"Type\":\"Succeed\"},\"MarkRoomFailed\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttSfMarkFailedFunction4B1C21C0Arn1239A168"
+       },
+       "\",\"Payload.$\":\"$\"}}},\"TimeoutSeconds\":300}"
+      ]
+     ]
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "RoomCreationPipelineRole8EC6B57F",
+      "Arn"
+     ]
+    },
+    "StateMachineName": "RoomCreationPipeline",
+    "StateMachineType": "STANDARD"
+   },
+   "DependsOn": [
+    "RoomCreationPipelineRoleDefaultPolicyD15CF78C",
+    "RoomCreationPipelineRole8EC6B57F"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "TriviaOrchestration/RoomCreationPipeline/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WKTQ6CMBBGz8K+jFjjCVyZaDRwADK0JZafljhTiGl6dwNsdPXey/dJkOcTFBkulCvd54NtIFaMqhe4UB2JzdQGp9h6RzUj9QQ3HBuNVzf73oi/A8QqKGWMFhUjmzuql3VGXFr320lYHCGWftimjU8/WPVZc7eUVn8EngIn4bw20NFhlhKOEoqsI2vzd3BsRwPlzi9GU6PkywAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaOrchestration/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "StateMachineArn": {
+   "Value": {
+    "Ref": "RoomCreationPipelineA2F13C17"
+   }
+  },
+  "ExportsOutputRefRoomCreationPipelineA2F13C176895E8FD": {
+   "Value": {
+    "Ref": "RoomCreationPipelineA2F13C17"
+   },
+   "Export": {
+    "Name": "TriviaOrchestration:ExportsOutputRefRoomCreationPipelineA2F13C176895E8FD"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

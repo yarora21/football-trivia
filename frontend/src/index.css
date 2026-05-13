@@ -1,0 +1,384 @@
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Press+Start+2P&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Russo One', sans-serif;
+  background: #0b1a30;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgba(255, 255, 255, 0.03) 39px,
+      rgba(255, 255, 255, 0.03) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(255, 255, 255, 0.03) 39px,
+      rgba(255, 255, 255, 0.03) 40px
+    );
+  color: #f0e6d3;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+h1 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.6rem;
+  color: #e8c547;
+  text-shadow: 3px 3px 0 #8b4513, -1px -1px 0 #000;
+  margin-bottom: 1.25rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #f0e6d3;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: #e8c547;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-text {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #c0a87e;
+}
+
+.hint {
+  color: #6b7d8e;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Buttons */
+.btn {
+  font-family: 'Russo One', sans-serif;
+  padding: 0.75rem 1.5rem;
+  border: 3px solid;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.15s;
+}
+
+.btn-primary {
+  background: #c8102e;
+  color: #fff;
+  border-color: #8b0000;
+  box-shadow: 0 4px 0 #5c0000;
+}
+
+.btn-primary:hover {
+  background: #a00d24;
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 #5c0000;
+}
+
+.btn-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #5c0000;
+}
+
+.btn-large {
+  font-size: 1.25rem;
+  padding: 1rem 2.5rem;
+}
+
+/* Inputs */
+input {
+  font-family: 'Russo One', sans-serif;
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 3px solid #2a3f5f;
+  border-radius: 4px;
+  background: #0d2240;
+  color: #f0e6d3;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #e8c547;
+}
+
+input::placeholder {
+  color: #4a5f7a;
+}
+
+/* Default buttons (home, forms) */
+button {
+  font-family: 'Russo One', sans-serif;
+  padding: 0.75rem 1.5rem;
+  border: 3px solid #2a3f5f;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #1a3a5c;
+  color: #e8c547;
+  margin: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.15s;
+  box-shadow: 0 3px 0 #0b1a30;
+}
+
+button:hover:not(:disabled) {
+  background: #244a6e;
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 #0b1a30;
+}
+
+button:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Question header */
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #2a3f5f;
+}
+
+.question-number {
+  font-size: 0.9rem;
+  color: #6b7d8e;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.timer {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #c8102e;
+  text-shadow: 1px 1px 0 #5c0000;
+}
+
+/* Question card */
+.question-card {
+  background: #0d2240;
+  border: 3px solid #2a3f5f;
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #c8102e, #e8c547, #c8102e);
+}
+
+.question-prompt {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  color: #fff;
+}
+
+/* Choices */
+.choices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.choice-btn {
+  font-family: 'Russo One', sans-serif;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: #1a3a5c;
+  color: #f0e6d3;
+  border: 3px solid #2a3f5f;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  box-shadow: 0 3px 0 #0b1a30;
+}
+
+.choice-btn:hover:not(:disabled):not(.selected):not(.correct):not(.wrong):not(.dimmed) {
+  background: #244a6e;
+  border-color: #e8c547;
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 #0b1a30;
+}
+
+.choice-btn.selected {
+  background: #1a3a5c;
+  border-color: #e8c547;
+  color: #e8c547;
+  box-shadow: 0 0 10px rgba(232, 197, 71, 0.3);
+}
+
+.choice-btn.correct {
+  background: #1a4d2e;
+  border-color: #2ecc71;
+  color: #2ecc71;
+  box-shadow: 0 0 10px rgba(46, 204, 113, 0.3);
+}
+
+.choice-btn.wrong {
+  background: #4d1a1a;
+  border-color: #c8102e;
+  color: #e74c3c;
+  box-shadow: 0 0 10px rgba(200, 16, 46, 0.3);
+}
+
+.choice-btn.dimmed {
+  opacity: 0.3;
+  box-shadow: none;
+}
+
+.choice-btn:disabled {
+  cursor: default;
+}
+
+/* Answer feedback */
+.answer-feedback {
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  border: 3px solid;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.answer-feedback.correct {
+  background: #1a4d2e;
+  border-color: #2ecc71;
+  color: #2ecc71;
+}
+
+.answer-feedback.wrong {
+  background: #4d1a1a;
+  border-color: #c8102e;
+  color: #e74c3c;
+}
+
+/* Leaderboard */
+.leaderboard {
+  background: #0d2240;
+  border: 3px solid #2a3f5f;
+  border-radius: 6px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.25rem;
+  border-bottom: 1px solid #1a3a5c;
+}
+
+.leaderboard-item:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-item:first-child .leaderboard-name {
+  color: #e8c547;
+}
+
+.leaderboard-name {
+  font-weight: 500;
+}
+
+.leaderboard-score {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+  color: #e8c547;
+  align-self: center;
+}
+
+/* Reveal section */
+.reveal-section {
+  margin-top: 1rem;
+}
+
+/* Scattered logos */
+.scattered-logos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.scattered-logo {
+  position: absolute;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+}
+
+/* Throwing ball */
+.throwing-ball-container {
+  margin-top: 1.5rem;
+}
+
+.throwing-ball-svg {
+  width: 500px;
+  height: 210px;
+  overflow: visible;
+}
+
+/* Retro Logo */
+.retro-logo {
+  width: 160px;
+  height: auto;
+  margin: 0 auto 0.5rem;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}

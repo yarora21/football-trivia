@@ -1,0 +1,21 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "f7f2bff9106c6164400a7313e9e6554e50c0889152340d09cff1da56f71506ee": {
+      "displayName": "TriviaOrchestration Template",
+      "source": {
+        "path": "TriviaOrchestration.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "666458383077-us-east-1-960ff380": {
+          "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
+          "objectKey": "f7f2bff9106c6164400a7313e9e6554e50c0889152340d09cff1da56f71506ee.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

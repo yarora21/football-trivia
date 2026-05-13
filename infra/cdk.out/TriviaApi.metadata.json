@@ -1,0 +1,391 @@
+{
+  "/TriviaApi": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/WebSocketUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "WebSocketUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:52:5)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/HttpApiUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HttpApiUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:90:5)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaApi/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApiE4D91E38"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/ProdStage/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ProdStage6F7F36FB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketStage2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:46:19)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaHttpApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaHttpApi088A4B3C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new HttpApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:58:21)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/HttpCreateRoomFunction/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HttpCreateRoomFunction6CF310FF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:67:30)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$connect-Route/ConnectIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApiconnectRouteConnectIntegrationPermission74CECD32"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$connect-Route/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApiconnectRoute9CDCCB3C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$disconnect-Route/DisconnectIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApidisconnectRouteDisconnectIntegrationPermissionC7217490"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$disconnect-Route/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApidisconnectRoute2326F852"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$default-Route/DefaultIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApidefaultRouteDefaultIntegrationPermission307A9681"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$default-Route/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApidefaultRouteBCF99978"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaHttpApi/DefaultStage/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaHttpApiDefaultStageC5AF9B55"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new HttpApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:58:21)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaHttpApi/POST--rooms/CreateRoomIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaHttpApiPOSTroomsCreateRoomIntegrationPermission0FDE595E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/yasharora/Documents/football-trvia/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:81:13)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaHttpApi/POST--rooms/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaHttpApiPOSTrooms2E189A6D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/yasharora/Documents/football-trvia/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:81:13)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/HttpCreateRoomFunction/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HttpCreateRoomFunctionServiceRole4C76FC67"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:67:30)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$connect-Route/ConnectIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApiconnectRouteConnectIntegrationF62A2C58"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$disconnect-Route/DisconnectIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApidisconnectRouteDisconnectIntegration033F5563"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaWebSocketApi/$default-Route/DefaultIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaWebSocketApidefaultRouteDefaultIntegration661D8242"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new WebSocketApi2 in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:24:25)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/TriviaHttpApi/POST--rooms/CreateRoomIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaHttpApiPOSTroomsCreateRoomIntegration41C99F7E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/yasharora/Documents/football-trvia/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:81:13)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaApi/HttpCreateRoomFunction/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "HttpCreateRoomFunctionServiceRoleDefaultPolicy8B7AEA30"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.grantWriteData in aws-cdk-lib...",
+        "new ApiStack (/Users/yasharora/Documents/football-trvia/infra/lib/api-stack.ts:78:17)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:31:5)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ]
+}

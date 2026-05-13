@@ -1,0 +1,575 @@
+{
+ "Resources": {
+  "TriviaWebSocketApiE4D91E38": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "Name": "trivia-websocket",
+    "ProtocolType": "WEBSOCKET",
+    "RouteSelectionExpression": "$request.body.action"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/Resource"
+   }
+  },
+  "TriviaWebSocketApiconnectRouteConnectIntegrationPermission74CECD32": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttWsConnectFunction1B8FD7A0ArnCF061B56"
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:666458383077:",
+       {
+        "Ref": "TriviaWebSocketApiE4D91E38"
+       },
+       "/*$connect"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$connect-Route/ConnectIntegration-Permission"
+   }
+  },
+  "TriviaWebSocketApiconnectRouteConnectIntegrationF62A2C58": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaWebSocketApiE4D91E38"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+       {
+        "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttWsConnectFunction1B8FD7A0ArnCF061B56"
+       },
+       "/invocations"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$connect-Route/ConnectIntegration/Resource"
+   }
+  },
+  "TriviaWebSocketApiconnectRoute9CDCCB3C": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaWebSocketApiE4D91E38"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "$connect",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "TriviaWebSocketApiconnectRouteConnectIntegrationF62A2C58"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$connect-Route/Resource"
+   }
+  },
+  "TriviaWebSocketApidisconnectRouteDisconnectIntegrationPermissionC7217490": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttWsDisconnectFunction340F3D71Arn6DDF6C4E"
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:666458383077:",
+       {
+        "Ref": "TriviaWebSocketApiE4D91E38"
+       },
+       "/*$disconnect"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$disconnect-Route/DisconnectIntegration-Permission"
+   }
+  },
+  "TriviaWebSocketApidisconnectRouteDisconnectIntegration033F5563": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaWebSocketApiE4D91E38"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+       {
+        "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttWsDisconnectFunction340F3D71Arn6DDF6C4E"
+       },
+       "/invocations"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$disconnect-Route/DisconnectIntegration/Resource"
+   }
+  },
+  "TriviaWebSocketApidisconnectRoute2326F852": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaWebSocketApiE4D91E38"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "$disconnect",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "TriviaWebSocketApidisconnectRouteDisconnectIntegration033F5563"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$disconnect-Route/Resource"
+   }
+  },
+  "TriviaWebSocketApidefaultRouteDefaultIntegrationPermission307A9681": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttWsDefaultFunctionE4651DCEArn3C456EF8"
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:666458383077:",
+       {
+        "Ref": "TriviaWebSocketApiE4D91E38"
+       },
+       "/*$default"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$default-Route/DefaultIntegration-Permission"
+   }
+  },
+  "TriviaWebSocketApidefaultRouteDefaultIntegration661D8242": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaWebSocketApiE4D91E38"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+       {
+        "Fn::ImportValue": "TriviaCompute:ExportsOutputFnGetAttWsDefaultFunctionE4651DCEArn3C456EF8"
+       },
+       "/invocations"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$default-Route/DefaultIntegration/Resource"
+   }
+  },
+  "TriviaWebSocketApidefaultRouteBCF99978": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaWebSocketApiE4D91E38"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "$default",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "TriviaWebSocketApidefaultRouteDefaultIntegration661D8242"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaWebSocketApi/$default-Route/Resource"
+   }
+  },
+  "ProdStage6F7F36FB": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaWebSocketApiE4D91E38"
+    },
+    "AutoDeploy": true,
+    "StageName": "prod"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/ProdStage/Resource"
+   }
+  },
+  "TriviaHttpApi088A4B3C": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "CorsConfiguration": {
+     "AllowHeaders": [
+      "Content-Type"
+     ],
+     "AllowMethods": [
+      "POST"
+     ],
+     "AllowOrigins": [
+      "*"
+     ]
+    },
+    "Name": "trivia-http",
+    "ProtocolType": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaHttpApi/Resource"
+   }
+  },
+  "TriviaHttpApiDefaultStageC5AF9B55": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaHttpApi088A4B3C"
+    },
+    "AutoDeploy": true,
+    "StageName": "$default"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaHttpApi/DefaultStage/Resource"
+   }
+  },
+  "TriviaHttpApiPOSTroomsCreateRoomIntegration41C99F7E": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaHttpApi088A4B3C"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "HttpCreateRoomFunction6CF310FF",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaHttpApi/POST--rooms/CreateRoomIntegration/Resource"
+   }
+  },
+  "TriviaHttpApiPOSTroomsCreateRoomIntegrationPermission0FDE595E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "HttpCreateRoomFunction6CF310FF",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:666458383077:",
+       {
+        "Ref": "TriviaHttpApi088A4B3C"
+       },
+       "/*/*/rooms"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaHttpApi/POST--rooms/CreateRoomIntegration-Permission"
+   }
+  },
+  "TriviaHttpApiPOSTrooms2E189A6D": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "TriviaHttpApi088A4B3C"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "POST /rooms",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "TriviaHttpApiPOSTroomsCreateRoomIntegration41C99F7E"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/TriviaHttpApi/POST--rooms/Resource"
+   }
+  },
+  "HttpCreateRoomFunctionServiceRole4C76FC67": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/HttpCreateRoomFunction/ServiceRole/Resource"
+   }
+  },
+  "HttpCreateRoomFunctionServiceRoleDefaultPolicy8B7AEA30": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::ImportValue": "TriviaData:ExportsOutputFnGetAttTriviaTable6A06A3A4Arn1357D219"
+       }
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::ImportValue": "TriviaOrchestration:ExportsOutputRefRoomCreationPipelineA2F13C176895E8FD"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "HttpCreateRoomFunctionServiceRoleDefaultPolicy8B7AEA30",
+    "Roles": [
+     {
+      "Ref": "HttpCreateRoomFunctionServiceRole4C76FC67"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/HttpCreateRoomFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "HttpCreateRoomFunction6CF310FF": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Fn::ImportValue": "TriviaData:ExportsOutputRefTriviaTable6A06A3A47DD60FB3"
+      },
+      "STATE_MACHINE_ARN": {
+       "Fn::ImportValue": "TriviaOrchestration:ExportsOutputRefRoomCreationPipelineA2F13C176895E8FD"
+      }
+     }
+    },
+    "FunctionName": "trivia-http-create-room",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "HttpCreateRoomFunctionServiceRole4C76FC67",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "HttpCreateRoomFunctionServiceRoleDefaultPolicy8B7AEA30",
+    "HttpCreateRoomFunctionServiceRole4C76FC67"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/HttpCreateRoomFunction/Resource",
+    "aws:asset:path": "asset.9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Oy26DQAz8ltwXN13UD0giVe2pERx6jAw4aMOyi7A3KEL8e+WiNFVO8/DYHgv2LYftBifO6qbLvKtgLgXrzuDEpxkH16LQhLerhfmbqjLWHclucOZwDgp/XhGT0EN+BqF2RHExaPRJPoVLwZbUX8mHyKC3FR/OuqPs37HFeOyrBmE+nMORxt4x64/3FOr7sztfjMMe5iJ6Wjt4MsfoXX1TubLFcH5CZhKGnYLhHPZJS+6RadHkV5Ihifkdaz0X2sWE2BBc+OVqLbxa2G4u7Fw2piCuJyhW/AHXdqX1bwEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "TriviaApi/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "WebSocketUrl": {
+   "Description": "Connect with: wscat -c \"<url>?room=TEST&role=player&name=Alex\"",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "wss://",
+      {
+       "Ref": "TriviaWebSocketApiE4D91E38"
+      },
+      ".execute-api.us-east-1.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/prod"
+     ]
+    ]
+   }
+  },
+  "HttpApiUrl": {
+   "Description": "HTTP API base URL — POST /rooms to create a room",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "TriviaHttpApi088A4B3C"
+      },
+      ".execute-api.us-east-1.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/"
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

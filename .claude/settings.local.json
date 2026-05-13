@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -X POST https://i2bl1hlmbl.execute-api.us-east-1.amazonaws.com/rooms -H \"Content-Type: application/json\" -d '{\"topic\": \"NFL 2024 season\", \"question_count\": 5}')",
+      "Bash(sleep 35 && aws dynamodb get-item --table-name trivia --key '{\"pk\": {\"S\": \"ROOM#V4ZTA\"}, \"sk\": {\"S\": \"META\"}}' --query 'Item.status.S' --output text)"
+    ]
+  }
+}

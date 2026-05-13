@@ -1,0 +1,101 @@
+{
+  "/TriviaData": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:12:18)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaData/TriviaTable": [
+    {
+      "type": "aws:cdk:hasPhysicalName",
+      "data": {
+        "Ref": "TriviaTable6A06A3A4"
+      }
+    }
+  ],
+  "/TriviaData/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaData/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaData/TriviaTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "TriviaTable6A06A3A4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Table2 in aws-cdk-lib...",
+        "new DataStack (/Users/yasharora/Documents/football-trvia/infra/lib/data-stack.ts:12:18)",
+        "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:12:18)",
+        "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
+        "...node internals, ts-node, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/TriviaData/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaData/Exports/Output{\"Fn::GetAtt\":[\"TriviaTable6A06A3A4\",\"Arn\"]}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputFnGetAttTriviaTable6A06A3A4Arn1357D219"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/TriviaData/Exports/Output{\"Ref\":\"TriviaTable6A06A3A4\"}": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExportsOutputRefTriviaTable6A06A3A47DD60FB3"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals, @cspotcode/source-map-support...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ]
+}

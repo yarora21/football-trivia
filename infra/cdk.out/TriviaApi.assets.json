@@ -1,0 +1,36 @@
+{
+  "version": "53.0.0",
+  "files": {
+    "9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e": {
+      "displayName": "HttpCreateRoomFunction/Code",
+      "source": {
+        "path": "asset.9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "666458383077-us-east-1-4ff4e9cf": {
+          "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
+          "objectKey": "9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
+        }
+      }
+    },
+    "9af3e05d22cbca05aaa4f6bef158bf6063141fd56bd756e51949187b2fdf5543": {
+      "displayName": "TriviaApi Template",
+      "source": {
+        "path": "TriviaApi.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "666458383077-us-east-1-6d3ecca0": {
+          "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
+          "objectKey": "9af3e05d22cbca05aaa4f6bef158bf6063141fd56bd756e51949187b2fdf5543.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

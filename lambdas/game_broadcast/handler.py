@@ -1,0 +1,44 @@
+import json
+import os
+import boto3
+from boto3.dynamodb.conditions import Key
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table(os.environ['TABLE_NAME'])
+
+WS_ENDPOINT = os.environ['WS_ENDPOINT']
+apigw = boto3.client('apigatewaymanagementapi', endpoint_url=WS_ENDPOINT)
+
+
+def handler(event, context):
+    room_code = event['room_code']
+    message = event.get('message', event)
+
+    # Get all players in this room
+    response = table.query(
+        KeyConditionExpression=Key('pk').eq(f'ROOM#{room_code}') & Key('sk').begins_with('PLAYER#'),
+    )
+
+    stale_connections = []
+
+    for item in response.get('Items', []):
+        connection_id = item['sk'].replace('PLAYER#', '')
+        try:
+            apigw.post_to_connection(
+                ConnectionId=connection_id,
+                Data=json.dumps(message).encode('utf-8'),
+            )
+        except apigw.exceptions.GoneException:
+            stale_connections.append(connection_id)
+        except Exception as e:
+            print(f'Failed to send to {connection_id}: {e}')
+
+    # Clean up stale connections
+    for connection_id in stale_connections:
+        try:
+            table.delete_item(Key={'pk': f'ROOM#{room_code}', 'sk': f'PLAYER#{connection_id}'})
+            table.delete_item(Key={'pk': f'CONN#{connection_id}', 'sk': 'META'})
+        except Exception as e:
+            print(f'Failed to clean up {connection_id}: {e}')
+
+    return {'sent': len(response.get('Items', [])) - len(stale_connections)}

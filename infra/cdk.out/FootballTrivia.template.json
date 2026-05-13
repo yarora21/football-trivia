@@ -1,0 +1,2793 @@
+{
+ "Resources": {
+  "DataTriviaTable5DE02139": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "TableName": "trivia",
+    "TimeToLiveSpecification": {
+     "AttributeName": "ttl",
+     "Enabled": true
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaTable/Resource"
+   }
+  },
+  "DataTriviaVpc0F135CFE": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/Resource"
+   }
+  },
+  "DataTriviaVpcPrivateSubnet1Subnet13EDA47F": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "DataTriviaVpcPrivateSubnet1RouteTableC9355D39": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "DataTriviaVpcPrivateSubnet1RouteTableAssociation42B099D3": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "DataTriviaVpcPrivateSubnet1RouteTableC9355D39"
+    },
+    "SubnetId": {
+     "Ref": "DataTriviaVpcPrivateSubnet1Subnet13EDA47F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "DataTriviaVpcPrivateSubnet2SubnetE863EBCE": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "DataTriviaVpcPrivateSubnet2RouteTable1E2A5157": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "DataTriviaVpcPrivateSubnet2RouteTableAssociationF45743AA": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "DataTriviaVpcPrivateSubnet2RouteTable1E2A5157"
+    },
+    "SubnetId": {
+     "Ref": "DataTriviaVpcPrivateSubnet2SubnetE863EBCE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "DataTriviaVpcDynamoDbEndpointB1183C8B": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "RouteTableIds": [
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet1RouteTableC9355D39"
+     },
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet2RouteTable1E2A5157"
+     }
+    ],
+    "ServiceName": {
+     "Fn::Join": [
+      "",
+      [
+       "com.amazonaws.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".dynamodb"
+      ]
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc"
+     }
+    ],
+    "VpcEndpointType": "Gateway",
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/DynamoDbEndpoint/Resource"
+   }
+  },
+  "DataTriviaVpcExecuteApiEndpointSecurityGroupBB39D085": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "FootballTrivia/Data/TriviaVpc/ExecuteApiEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "DataTriviaVpc0F135CFE",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "DataTriviaVpc0F135CFE",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/ExecuteApiEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "DataTriviaVpcExecuteApiEndpointAD6AF669": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "DataTriviaVpcExecuteApiEndpointSecurityGroupBB39D085",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.execute-api",
+    "SubnetIds": [
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet1Subnet13EDA47F"
+     },
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet2SubnetE863EBCE"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/ExecuteApiEndpoint/Resource"
+   }
+  },
+  "DataTriviaVpcSqsEndpointSecurityGroupC2237AA1": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "FootballTrivia/Data/TriviaVpc/SqsEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "DataTriviaVpc0F135CFE",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "DataTriviaVpc0F135CFE",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/SqsEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "DataTriviaVpcSqsEndpoint51280421": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "DataTriviaVpcSqsEndpointSecurityGroupC2237AA1",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.sqs",
+    "SubnetIds": [
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet1Subnet13EDA47F"
+     },
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet2SubnetE863EBCE"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/SqsEndpoint/Resource"
+   }
+  },
+  "DataTriviaVpcLambdaEndpointSecurityGroupE23E204D": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "FootballTrivia/Data/TriviaVpc/LambdaEndpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "DataTriviaVpc0F135CFE",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "DataTriviaVpc0F135CFE",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/LambdaEndpoint/SecurityGroup/Resource"
+   }
+  },
+  "DataTriviaVpcLambdaEndpoint634942AE": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "DataTriviaVpcLambdaEndpointSecurityGroupE23E204D",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": "com.amazonaws.us-east-1.lambda",
+    "SubnetIds": [
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet1Subnet13EDA47F"
+     },
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet2SubnetE863EBCE"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "FootballTrivia/Data/TriviaVpc"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaVpc/LambdaEndpoint/Resource"
+   }
+  },
+  "DataLambdaSg36CA2E1D": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for VPC Lambdas",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/LambdaSg/Resource"
+   }
+  },
+  "DataRedisSgADF85847": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for ElastiCache Redis",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "DataTriviaVpc0F135CFE"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/RedisSg/Resource"
+   }
+  },
+  "DataRedisSgfromFootballTriviaDataLambdaSg773C51736379453A8935": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Allow Lambda to connect to Redis",
+    "FromPort": 6379,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "DataRedisSgADF85847",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "DataLambdaSg36CA2E1D",
+      "GroupId"
+     ]
+    },
+    "ToPort": 6379
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/RedisSg/from FootballTriviaDataLambdaSg773C5173:6379"
+   }
+  },
+  "DataRedisSubnetGroup50381F75": {
+   "Type": "AWS::ElastiCache::SubnetGroup",
+   "Properties": {
+    "CacheSubnetGroupName": "trivia-redis-subnets",
+    "Description": "Subnets for ElastiCache Redis",
+    "SubnetIds": [
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet1Subnet13EDA47F"
+     },
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet2SubnetE863EBCE"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/RedisSubnetGroup"
+   }
+  },
+  "DataTriviaRedisC0DD97C6": {
+   "Type": "AWS::ElastiCache::ServerlessCache",
+   "Properties": {
+    "Engine": "redis",
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "DataRedisSgADF85847",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServerlessCacheName": "trivia-redis",
+    "SubnetIds": [
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet1Subnet13EDA47F"
+     },
+     {
+      "Ref": "DataTriviaVpcPrivateSubnet2SubnetE863EBCE"
+     }
+    ]
+   },
+   "DependsOn": [
+    "DataRedisSubnetGroup50381F75"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Data/TriviaRedis"
+   }
+  },
+  "ComputeWsConnectFunctionServiceRole4740DFF0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsConnectFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeWsConnectFunctionServiceRoleDefaultPolicy30B59C97": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeWsConnectFunctionServiceRoleDefaultPolicy30B59C97",
+    "Roles": [
+     {
+      "Ref": "ComputeWsConnectFunctionServiceRole4740DFF0"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsConnectFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeWsConnectFunction478BA5CB": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "629693c78234ca6afa163c319892f5fd20f2efa4daf21c03801cd58d1996677c.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      }
+     }
+    },
+    "FunctionName": "trivia-ws-connect",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeWsConnectFunctionServiceRole4740DFF0",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "ComputeWsConnectFunctionServiceRoleDefaultPolicy30B59C97",
+    "ComputeWsConnectFunctionServiceRole4740DFF0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsConnectFunction/Resource",
+    "aws:asset:path": "asset.629693c78234ca6afa163c319892f5fd20f2efa4daf21c03801cd58d1996677c",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeWsDisconnectFunctionServiceRoleC2786C25": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsDisconnectFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeWsDisconnectFunctionServiceRoleDefaultPolicy93F2FE91": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeWsDisconnectFunctionServiceRoleDefaultPolicy93F2FE91",
+    "Roles": [
+     {
+      "Ref": "ComputeWsDisconnectFunctionServiceRoleC2786C25"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsDisconnectFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeWsDisconnectFunction93B1992C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "3ec0bda44aea58ebf84f5c6430eef0dee2c0e2461a305aed18338333a4a44a4e.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      }
+     }
+    },
+    "FunctionName": "trivia-ws-disconnect",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeWsDisconnectFunctionServiceRoleC2786C25",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "ComputeWsDisconnectFunctionServiceRoleDefaultPolicy93F2FE91",
+    "ComputeWsDisconnectFunctionServiceRoleC2786C25"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsDisconnectFunction/Resource",
+    "aws:asset:path": "asset.3ec0bda44aea58ebf84f5c6430eef0dee2c0e2461a305aed18338333a4a44a4e",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeWsDefaultFunctionServiceRoleEE1DE54A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsDefaultFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeWsDefaultFunctionServiceRoleDefaultPolicy805AD986": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "sqs:GetQueueAttributes",
+        "sqs:GetQueueUrl",
+        "sqs:SendMessage"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ComputeAdvanceQueue831BBFC6",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ComputeGameBroadcastFunctionDD19B898",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "ComputeGameScoreAnswerFunction00B19055",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeGameBroadcastFunctionDD19B898",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeGameScoreAnswerFunction00B19055",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "execute-api:ManageConnections",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":execute-api:us-east-1:666458383077:",
+          {
+           "Ref": "ApiTriviaWebSocketApiFFA20134"
+          },
+          "/*/*/@connections/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeWsDefaultFunctionServiceRoleDefaultPolicy805AD986",
+    "Roles": [
+     {
+      "Ref": "ComputeWsDefaultFunctionServiceRoleEE1DE54A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsDefaultFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeWsDefaultFunction0804DED1": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "38aa1b49a60133cae8d60df8a8023d4a865e7c456def666775407c6efa66cb9f.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      },
+      "QUEUE_URL": {
+       "Ref": "ComputeAdvanceQueue831BBFC6"
+      },
+      "SCORE_FN_NAME": {
+       "Ref": "ComputeGameScoreAnswerFunction00B19055"
+      },
+      "BROADCAST_FN_NAME": {
+       "Ref": "ComputeGameBroadcastFunctionDD19B898"
+      }
+     }
+    },
+    "FunctionName": "trivia-ws-default",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeWsDefaultFunctionServiceRoleEE1DE54A",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "ComputeWsDefaultFunctionServiceRoleDefaultPolicy805AD986",
+    "ComputeWsDefaultFunctionServiceRoleEE1DE54A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/WsDefaultFunction/Resource",
+    "aws:asset:path": "asset.38aa1b49a60133cae8d60df8a8023d4a865e7c456def666775407c6efa66cb9f",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeSfFetchDataFunctionServiceRole33349463": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfFetchDataFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeSfFetchDataFunction3111853F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "0a3e06bb3c589f28a46f6b692963704722fe8b62172d2687828de4a32e152e2b.zip"
+    },
+    "FunctionName": "trivia-sf-fetch-data",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeSfFetchDataFunctionServiceRole33349463",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ComputeSfFetchDataFunctionServiceRole33349463"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfFetchDataFunction/Resource",
+    "aws:asset:path": "asset.0a3e06bb3c589f28a46f6b692963704722fe8b62172d2687828de4a32e152e2b",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeSfGenerateQuestionsFunctionServiceRole6B0E9D46": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfGenerateQuestionsFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeSfGenerateQuestionsFunctionServiceRoleDefaultPolicyA0884D9B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "bedrock:InvokeModel",
+       "Effect": "Allow",
+       "Resource": "arn:aws:bedrock:*::foundation-model/amazon.nova-pro-v1:0"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeSfGenerateQuestionsFunctionServiceRoleDefaultPolicyA0884D9B",
+    "Roles": [
+     {
+      "Ref": "ComputeSfGenerateQuestionsFunctionServiceRole6B0E9D46"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfGenerateQuestionsFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeSfGenerateQuestionsFunction13AFDB39": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "8f3f99356459bcbec8c538c9b4e86593b7518e296c4a195a930c4964f3c2a450.zip"
+    },
+    "FunctionName": "trivia-sf-generate-questions",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeSfGenerateQuestionsFunctionServiceRole6B0E9D46",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 60
+   },
+   "DependsOn": [
+    "ComputeSfGenerateQuestionsFunctionServiceRoleDefaultPolicyA0884D9B",
+    "ComputeSfGenerateQuestionsFunctionServiceRole6B0E9D46"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfGenerateQuestionsFunction/Resource",
+    "aws:asset:path": "asset.8f3f99356459bcbec8c538c9b4e86593b7518e296c4a195a930c4964f3c2a450",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeSfValidateQuestionsFunctionServiceRole9279398C": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfValidateQuestionsFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeSfValidateQuestionsFunction528D8FD4": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "a6298aac8374be60de2263ad6082499414563daaae9c3a9365ef9221b2fe0d0e.zip"
+    },
+    "FunctionName": "trivia-sf-validate-questions",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeSfValidateQuestionsFunctionServiceRole9279398C",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "ComputeSfValidateQuestionsFunctionServiceRole9279398C"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfValidateQuestionsFunction/Resource",
+    "aws:asset:path": "asset.a6298aac8374be60de2263ad6082499414563daaae9c3a9365ef9221b2fe0d0e",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeSfPersistQuestionsFunctionServiceRole4D322FC1": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfPersistQuestionsFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeSfPersistQuestionsFunctionServiceRoleDefaultPolicyA328067B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeSfPersistQuestionsFunctionServiceRoleDefaultPolicyA328067B",
+    "Roles": [
+     {
+      "Ref": "ComputeSfPersistQuestionsFunctionServiceRole4D322FC1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfPersistQuestionsFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeSfPersistQuestionsFunctionF0295637": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "7cd5b7a8753c391740816e08db8a0baffd5e093afda768bde8a87260373d9bc6.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      }
+     }
+    },
+    "FunctionName": "trivia-sf-persist-questions",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeSfPersistQuestionsFunctionServiceRole4D322FC1",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ComputeSfPersistQuestionsFunctionServiceRoleDefaultPolicyA328067B",
+    "ComputeSfPersistQuestionsFunctionServiceRole4D322FC1"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfPersistQuestionsFunction/Resource",
+    "aws:asset:path": "asset.7cd5b7a8753c391740816e08db8a0baffd5e093afda768bde8a87260373d9bc6",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeSfMarkFailedFunctionServiceRole5CD9FCD5": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfMarkFailedFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeSfMarkFailedFunctionServiceRoleDefaultPolicyDE115054": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeSfMarkFailedFunctionServiceRoleDefaultPolicyDE115054",
+    "Roles": [
+     {
+      "Ref": "ComputeSfMarkFailedFunctionServiceRole5CD9FCD5"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfMarkFailedFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeSfMarkFailedFunction87191C9B": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "f587ab9ec0bf4b616eb2403640d139f3c1aab7276d0365c33eb3d6d9d9142d99.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      }
+     }
+    },
+    "FunctionName": "trivia-sf-mark-failed",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeSfMarkFailedFunctionServiceRole5CD9FCD5",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "ComputeSfMarkFailedFunctionServiceRoleDefaultPolicyDE115054",
+    "ComputeSfMarkFailedFunctionServiceRole5CD9FCD5"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfMarkFailedFunction/Resource",
+    "aws:asset:path": "asset.f587ab9ec0bf4b616eb2403640d139f3c1aab7276d0365c33eb3d6d9d9142d99",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeGameScoreAnswerFunctionServiceRole8E6D3E75": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "DependsOn": [
+    "DataTriviaVpcPrivateSubnet1RouteTableAssociation42B099D3",
+    "DataTriviaVpcPrivateSubnet2RouteTableAssociationF45743AA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameScoreAnswerFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeGameScoreAnswerFunctionServiceRoleDefaultPolicyA42D06C7": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeGameScoreAnswerFunctionServiceRoleDefaultPolicyA42D06C7",
+    "Roles": [
+     {
+      "Ref": "ComputeGameScoreAnswerFunctionServiceRole8E6D3E75"
+     }
+    ]
+   },
+   "DependsOn": [
+    "DataTriviaVpcPrivateSubnet1RouteTableAssociation42B099D3",
+    "DataTriviaVpcPrivateSubnet2RouteTableAssociationF45743AA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameScoreAnswerFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeGameScoreAnswerFunction00B19055": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "146f35ee61280a265bb234a0bcb8b7abecfa6a5ec19d58bac516b8462b774bc9.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      },
+      "REDIS_HOST": {
+       "Fn::GetAtt": [
+        "DataTriviaRedisC0DD97C6",
+        "Endpoint.Address"
+       ]
+      }
+     }
+    },
+    "FunctionName": "trivia-game-score-answer",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeGameScoreAnswerFunctionServiceRole8E6D3E75",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10,
+    "VpcConfig": {
+     "SecurityGroupIds": [
+      {
+       "Fn::GetAtt": [
+        "DataLambdaSg36CA2E1D",
+        "GroupId"
+       ]
+      }
+     ],
+     "SubnetIds": [
+      {
+       "Ref": "DataTriviaVpcPrivateSubnet1Subnet13EDA47F"
+      },
+      {
+       "Ref": "DataTriviaVpcPrivateSubnet2SubnetE863EBCE"
+      }
+     ]
+    }
+   },
+   "DependsOn": [
+    "ComputeGameScoreAnswerFunctionServiceRoleDefaultPolicyA42D06C7",
+    "ComputeGameScoreAnswerFunctionServiceRole8E6D3E75",
+    "DataTriviaVpcPrivateSubnet1RouteTableAssociation42B099D3",
+    "DataTriviaVpcPrivateSubnet2RouteTableAssociationF45743AA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameScoreAnswerFunction/Resource",
+    "aws:asset:path": "asset.146f35ee61280a265bb234a0bcb8b7abecfa6a5ec19d58bac516b8462b774bc9",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeGameBroadcastFunctionServiceRoleFA22023A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameBroadcastFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeGameBroadcastFunctionServiceRoleDefaultPolicyB10C0F81": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "execute-api:ManageConnections",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":execute-api:us-east-1:666458383077:",
+          {
+           "Ref": "ApiTriviaWebSocketApiFFA20134"
+          },
+          "/*/*/@connections/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeGameBroadcastFunctionServiceRoleDefaultPolicyB10C0F81",
+    "Roles": [
+     {
+      "Ref": "ComputeGameBroadcastFunctionServiceRoleFA22023A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameBroadcastFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeGameBroadcastFunctionDD19B898": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "f79c9c1c20a7a05ed8aef88be333b1b7a99797a514b12f63b7c8fc052b5cf0c4.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      },
+      "WS_ENDPOINT": {
+       "Fn::Join": [
+        "",
+        [
+         "https://",
+         {
+          "Ref": "ApiTriviaWebSocketApiFFA20134"
+         },
+         ".execute-api.us-east-1.amazonaws.com/prod"
+        ]
+       ]
+      }
+     }
+    },
+    "FunctionName": "trivia-game-broadcast",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeGameBroadcastFunctionServiceRoleFA22023A",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "ComputeGameBroadcastFunctionServiceRoleDefaultPolicyB10C0F81",
+    "ComputeGameBroadcastFunctionServiceRoleFA22023A"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameBroadcastFunction/Resource",
+    "aws:asset:path": "asset.f79c9c1c20a7a05ed8aef88be333b1b7a99797a514b12f63b7c8fc052b5cf0c4",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeAdvanceQueue831BBFC6": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "QueueName": "trivia-advance-round",
+    "VisibilityTimeout": 60
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/AdvanceQueue/Resource"
+   }
+  },
+  "ComputeGameAdvanceRoundFunctionServiceRole3BE7C6C0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "DependsOn": [
+    "DataTriviaVpcPrivateSubnet1RouteTableAssociation42B099D3",
+    "DataTriviaVpcPrivateSubnet2RouteTableAssociationF45743AA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameAdvanceRoundFunction/ServiceRole/Resource"
+   }
+  },
+  "ComputeGameAdvanceRoundFunctionServiceRoleDefaultPolicyD265B52B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ComputeGameBroadcastFunctionDD19B898",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeGameBroadcastFunctionDD19B898",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "sqs:ChangeMessageVisibility",
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:GetQueueUrl",
+        "sqs:ReceiveMessage",
+        "sqs:SendMessage"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ComputeAdvanceQueue831BBFC6",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeGameAdvanceRoundFunctionServiceRoleDefaultPolicyD265B52B",
+    "Roles": [
+     {
+      "Ref": "ComputeGameAdvanceRoundFunctionServiceRole3BE7C6C0"
+     }
+    ]
+   },
+   "DependsOn": [
+    "DataTriviaVpcPrivateSubnet1RouteTableAssociation42B099D3",
+    "DataTriviaVpcPrivateSubnet2RouteTableAssociationF45743AA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameAdvanceRoundFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ComputeGameAdvanceRoundFunctionC55539EB": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "58b51c037257e8590933845b416c6cf1de63993419487c1277cd23a20e0e92d1.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      },
+      "REDIS_HOST": {
+       "Fn::GetAtt": [
+        "DataTriviaRedisC0DD97C6",
+        "Endpoint.Address"
+       ]
+      },
+      "QUEUE_URL": {
+       "Ref": "ComputeAdvanceQueue831BBFC6"
+      },
+      "BROADCAST_FN_NAME": {
+       "Ref": "ComputeGameBroadcastFunctionDD19B898"
+      }
+     }
+    },
+    "FunctionName": "trivia-game-advance-round",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ComputeGameAdvanceRoundFunctionServiceRole3BE7C6C0",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 30,
+    "VpcConfig": {
+     "SecurityGroupIds": [
+      {
+       "Fn::GetAtt": [
+        "DataLambdaSg36CA2E1D",
+        "GroupId"
+       ]
+      }
+     ],
+     "SubnetIds": [
+      {
+       "Ref": "DataTriviaVpcPrivateSubnet1Subnet13EDA47F"
+      },
+      {
+       "Ref": "DataTriviaVpcPrivateSubnet2SubnetE863EBCE"
+      }
+     ]
+    }
+   },
+   "DependsOn": [
+    "ComputeGameAdvanceRoundFunctionServiceRoleDefaultPolicyD265B52B",
+    "ComputeGameAdvanceRoundFunctionServiceRole3BE7C6C0",
+    "DataTriviaVpcPrivateSubnet1RouteTableAssociation42B099D3",
+    "DataTriviaVpcPrivateSubnet2RouteTableAssociationF45743AA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameAdvanceRoundFunction/Resource",
+    "aws:asset:path": "asset.58b51c037257e8590933845b416c6cf1de63993419487c1277cd23a20e0e92d1",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ComputeGameAdvanceRoundFunctionSqsEventSourceFootballTriviaComputeAdvanceQueue7CF769DE384BFADB": {
+   "Type": "AWS::Lambda::EventSourceMapping",
+   "Properties": {
+    "EventSourceArn": {
+     "Fn::GetAtt": [
+      "ComputeAdvanceQueue831BBFC6",
+      "Arn"
+     ]
+    },
+    "FunctionName": {
+     "Ref": "ComputeGameAdvanceRoundFunctionC55539EB"
+    }
+   },
+   "DependsOn": [
+    "DataTriviaVpcPrivateSubnet1RouteTableAssociation42B099D3",
+    "DataTriviaVpcPrivateSubnet2RouteTableAssociationF45743AA"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/GameAdvanceRoundFunction/SqsEventSource:FootballTriviaComputeAdvanceQueue7CF769DE/Resource"
+   }
+  },
+  "OrchestrationRoomCreationPipelineRoleE393A6C5": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Orchestration/RoomCreationPipeline/Role/Resource"
+   }
+  },
+  "OrchestrationRoomCreationPipelineRoleDefaultPolicy4E048928": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ComputeSfFetchDataFunction3111853F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "ComputeSfGenerateQuestionsFunction13AFDB39",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "ComputeSfMarkFailedFunction87191C9B",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "ComputeSfPersistQuestionsFunctionF0295637",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "ComputeSfValidateQuestionsFunction528D8FD4",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeSfFetchDataFunction3111853F",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeSfGenerateQuestionsFunction13AFDB39",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeSfMarkFailedFunction87191C9B",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeSfPersistQuestionsFunctionF0295637",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeSfValidateQuestionsFunction528D8FD4",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "OrchestrationRoomCreationPipelineRoleDefaultPolicy4E048928",
+    "Roles": [
+     {
+      "Ref": "OrchestrationRoomCreationPipelineRoleE393A6C5"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Orchestration/RoomCreationPipeline/Role/DefaultPolicy/Resource"
+   }
+  },
+  "OrchestrationRoomCreationPipeline44FF785D": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"StartAt\":\"FetchFootballData\",\"States\":{\"FetchFootballData\":{\"Next\":\"GenerateQuestions\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2},{\"ErrorEquals\":[\"States.TaskFailed\"],\"MaxAttempts\":2,\"BackoffRate\":2}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"Next\":\"MarkRoomFailed\"}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeSfFetchDataFunction3111853F",
+         "Arn"
+        ]
+       },
+       "\",\"Payload.$\":\"$\"}},\"GenerateQuestions\":{\"Next\":\"ValidateQuestions\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2},{\"ErrorEquals\":[\"States.TaskFailed\"],\"MaxAttempts\":1}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"Next\":\"MarkRoomFailed\"}],\"Type\":\"Task\",\"TimeoutSeconds\":60,\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeSfGenerateQuestionsFunction13AFDB39",
+         "Arn"
+        ]
+       },
+       "\",\"Payload.$\":\"$\"}},\"ValidateQuestions\":{\"Next\":\"PersistQuestions\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Catch\":[{\"ErrorEquals\":[\"QuestionsFailedValidation\"],\"ResultPath\":\"$.validationError\",\"Next\":\"GenerateQuestions\"}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeSfValidateQuestionsFunction528D8FD4",
+         "Arn"
+        ]
+       },
+       "\",\"Payload.$\":\"$\"}},\"PersistQuestions\":{\"Next\":\"Done\",\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeSfPersistQuestionsFunctionF0295637",
+         "Arn"
+        ]
+       },
+       "\",\"Payload.$\":\"$\"}},\"Done\":{\"Type\":\"Succeed\"},\"MarkRoomFailed\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"Lambda.ClientExecutionTimeoutException\",\"Lambda.ServiceException\",\"Lambda.AWSLambdaException\",\"Lambda.SdkClientException\"],\"IntervalSeconds\":2,\"MaxAttempts\":6,\"BackoffRate\":2}],\"Type\":\"Task\",\"OutputPath\":\"$.Payload\",\"Resource\":\"arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":states:::lambda:invoke\",\"Parameters\":{\"FunctionName\":\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeSfMarkFailedFunction87191C9B",
+         "Arn"
+        ]
+       },
+       "\",\"Payload.$\":\"$\"}}},\"TimeoutSeconds\":300}"
+      ]
+     ]
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "OrchestrationRoomCreationPipelineRoleE393A6C5",
+      "Arn"
+     ]
+    },
+    "StateMachineName": "RoomCreationPipeline",
+    "StateMachineType": "STANDARD"
+   },
+   "DependsOn": [
+    "OrchestrationRoomCreationPipelineRoleDefaultPolicy4E048928",
+    "OrchestrationRoomCreationPipelineRoleE393A6C5"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Orchestration/RoomCreationPipeline/Resource"
+   }
+  },
+  "ApiTriviaWebSocketApiFFA20134": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "Name": "trivia-websocket",
+    "ProtocolType": "WEBSOCKET",
+    "RouteSelectionExpression": "$request.body.action"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/Resource"
+   }
+  },
+  "ApiTriviaWebSocketApiconnectRouteConnectIntegrationPermission5D16D15B": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ComputeWsConnectFunction478BA5CB",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:666458383077:",
+       {
+        "Ref": "ApiTriviaWebSocketApiFFA20134"
+       },
+       "/*$connect"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$connect-Route/ConnectIntegration-Permission"
+   }
+  },
+  "ApiTriviaWebSocketApiconnectRouteConnectIntegrationA01BDE1D": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaWebSocketApiFFA20134"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+       {
+        "Fn::GetAtt": [
+         "ComputeWsConnectFunction478BA5CB",
+         "Arn"
+        ]
+       },
+       "/invocations"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$connect-Route/ConnectIntegration/Resource"
+   }
+  },
+  "ApiTriviaWebSocketApiconnectRoute7E9F3CCC": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaWebSocketApiFFA20134"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "$connect",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiTriviaWebSocketApiconnectRouteConnectIntegrationA01BDE1D"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$connect-Route/Resource"
+   }
+  },
+  "ApiTriviaWebSocketApidisconnectRouteDisconnectIntegrationPermission2D5FC3FE": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ComputeWsDisconnectFunction93B1992C",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:666458383077:",
+       {
+        "Ref": "ApiTriviaWebSocketApiFFA20134"
+       },
+       "/*$disconnect"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$disconnect-Route/DisconnectIntegration-Permission"
+   }
+  },
+  "ApiTriviaWebSocketApidisconnectRouteDisconnectIntegration75BB71C6": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaWebSocketApiFFA20134"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+       {
+        "Fn::GetAtt": [
+         "ComputeWsDisconnectFunction93B1992C",
+         "Arn"
+        ]
+       },
+       "/invocations"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$disconnect-Route/DisconnectIntegration/Resource"
+   }
+  },
+  "ApiTriviaWebSocketApidisconnectRouteADC15EA4": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaWebSocketApiFFA20134"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "$disconnect",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiTriviaWebSocketApidisconnectRouteDisconnectIntegration75BB71C6"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$disconnect-Route/Resource"
+   }
+  },
+  "ApiTriviaWebSocketApidefaultRouteDefaultIntegrationPermission8CF56A9E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ComputeWsDefaultFunction0804DED1",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:666458383077:",
+       {
+        "Ref": "ApiTriviaWebSocketApiFFA20134"
+       },
+       "/*$default"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$default-Route/DefaultIntegration-Permission"
+   }
+  },
+  "ApiTriviaWebSocketApidefaultRouteDefaultIntegration0220B9E9": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaWebSocketApiFFA20134"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":apigateway:us-east-1:lambda:path/2015-03-31/functions/",
+       {
+        "Fn::GetAtt": [
+         "ComputeWsDefaultFunction0804DED1",
+         "Arn"
+        ]
+       },
+       "/invocations"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$default-Route/DefaultIntegration/Resource"
+   }
+  },
+  "ApiTriviaWebSocketApidefaultRoute4237EC55": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaWebSocketApiFFA20134"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "$default",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiTriviaWebSocketApidefaultRouteDefaultIntegration0220B9E9"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaWebSocketApi/$default-Route/Resource"
+   }
+  },
+  "ApiProdStage88D319D6": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaWebSocketApiFFA20134"
+    },
+    "AutoDeploy": true,
+    "StageName": "prod"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/ProdStage/Resource"
+   }
+  },
+  "ApiTriviaHttpApiDF4F26A9": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "CorsConfiguration": {
+     "AllowHeaders": [
+      "Content-Type"
+     ],
+     "AllowMethods": [
+      "POST"
+     ],
+     "AllowOrigins": [
+      "*"
+     ]
+    },
+    "Name": "trivia-http",
+    "ProtocolType": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaHttpApi/Resource"
+   }
+  },
+  "ApiTriviaHttpApiDefaultStage84719C50": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaHttpApiDF4F26A9"
+    },
+    "AutoDeploy": true,
+    "StageName": "$default"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaHttpApi/DefaultStage/Resource"
+   }
+  },
+  "ApiTriviaHttpApiPOSTroomsCreateRoomIntegration92DF2569": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaHttpApiDF4F26A9"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "ApiHttpCreateRoomFunctionE54B0D38",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaHttpApi/POST--rooms/CreateRoomIntegration/Resource"
+   }
+  },
+  "ApiTriviaHttpApiPOSTroomsCreateRoomIntegrationPermission9521752D": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ApiHttpCreateRoomFunctionE54B0D38",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:us-east-1:666458383077:",
+       {
+        "Ref": "ApiTriviaHttpApiDF4F26A9"
+       },
+       "/*/*/rooms"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaHttpApi/POST--rooms/CreateRoomIntegration-Permission"
+   }
+  },
+  "ApiTriviaHttpApiPOSTroomsF73EF246": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ApiTriviaHttpApiDF4F26A9"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "POST /rooms",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ApiTriviaHttpApiPOSTroomsCreateRoomIntegration92DF2569"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/TriviaHttpApi/POST--rooms/Resource"
+   }
+  },
+  "ApiHttpCreateRoomFunctionServiceRoleA3D408B1": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/HttpCreateRoomFunction/ServiceRole/Resource"
+   }
+  },
+  "ApiHttpCreateRoomFunctionServiceRoleDefaultPolicyDE68EF65": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "DataTriviaTable5DE02139",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "OrchestrationRoomCreationPipeline44FF785D"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ApiHttpCreateRoomFunctionServiceRoleDefaultPolicyDE68EF65",
+    "Roles": [
+     {
+      "Ref": "ApiHttpCreateRoomFunctionServiceRoleA3D408B1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/HttpCreateRoomFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ApiHttpCreateRoomFunctionE54B0D38": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "DataTriviaTable5DE02139"
+      },
+      "STATE_MACHINE_ARN": {
+       "Ref": "OrchestrationRoomCreationPipeline44FF785D"
+      }
+     }
+    },
+    "FunctionName": "trivia-http-create-room",
+    "Handler": "handler.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "ApiHttpCreateRoomFunctionServiceRoleA3D408B1",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.12",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "ApiHttpCreateRoomFunctionServiceRoleDefaultPolicyDE68EF65",
+    "ApiHttpCreateRoomFunctionServiceRoleA3D408B1"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Api/HttpCreateRoomFunction/Resource",
+    "aws:asset:path": "asset.9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31R0W7bMAz8lr4rWudgH5AGXRdgxbJ4yB4DWmZc1bakiZSDQPC/D5JTJy2GPd3xdKSIYyGLL0t5fwcnWqi6XXS6krFkUK2AEx1ifTbQ27qS8RdUHYr10WQyClSFjHunkrTfrsXW6wEYy1AZ5CRe2c4Gxrl/0q/aisgqDaytEU/AeILz3qlHUzurDV/Gz+XGMPojKLz1lKiC13x+8ja4/Md/hY1pPBKNAjsg1grUC8o4r3bT5Af0HRKtk2UUHfRVDTJ+DUblfddHM/PHAQ2XNniFz+CcNk16/re6Rd9rIm3NKDT0Mu7sFE7Gre20OmdfZqOg5QGIkEmuEghayoegWuQHIBT0h2T8GTDkEZmMghjd8bIbHRioJfk9778xg23xvUHGMiiFWIuSgfEZ1Is207lu6lGA0810o6GQ8TdWpU1rrJxO3gSzli98LdPhGg9vsX0oP5hLhubt9wbFN2aXZie8KlNPYjfDxlHskHLeImeV/JfUfwR2gUdhbI3ylT4NRSE/F/L+7pW0XvhgWPcodxP+BVX9xpYaAwAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "WebSocketUrl": {
+   "Description": "Connect with: wscat -c \"<url>?room=TEST&role=player&name=Alex\"",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "wss://",
+      {
+       "Ref": "ApiTriviaWebSocketApiFFA20134"
+      },
+      ".execute-api.us-east-1.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/prod"
+     ]
+    ]
+   }
+  },
+  "HttpApiUrl": {
+   "Description": "HTTP API base URL — POST /rooms to create a room",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "ApiTriviaHttpApiDF4F26A9"
+      },
+      ".execute-api.us-east-1.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/"
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
