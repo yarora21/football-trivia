@@ -1,5 +1,34 @@
+# Personal notes
 CHALLENGES.md
 NOTES.md
 NOTES_part2.md
 NOTES_part3.md
 Notes_part5.md
+
+# Dependencies
+node_modules/
+
+# Build output
+frontend/dist/
+infra/cdk.out/
+
+# Environment
+frontend/.env.local
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Lambda vendored packages (installed from requirements.txt)
+lambdas/game_score_answer/redis/
+lambdas/game_score_answer/redis-*.dist-info/
+lambdas/game_score_answer/async_timeout/
+lambdas/game_score_answer/async_timeout-*.dist-info/
+lambdas/game_advance_round/redis/
+lambdas/game_advance_round/redis-*.dist-info/
+lambdas/game_advance_round/async_timeout/
+lambdas/game_advance_round/async_timeout-*.dist-info/
+
+# OS
+.DS_Store
