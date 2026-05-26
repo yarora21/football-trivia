@@ -69,6 +69,7 @@ export class OrchestrationConstruct extends Construct {
       definitionBody: sfn.DefinitionBody.fromChainable(fetchData),
       stateMachineType: sfn.StateMachineType.STANDARD,
       timeout: cdk.Duration.minutes(5),
+      tracingEnabled: true,
     });
   }
 }

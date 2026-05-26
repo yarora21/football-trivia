@@ -1,76 +1,91 @@
 {
   "version": "53.0.0",
   "files": {
-    "629693c78234ca6afa163c319892f5fd20f2efa4daf21c03801cd58d1996677c": {
+    "7426927073a81ee4af49a5bfb704c2d8f9ffb8099dd467cb6123ad15c2012dbd": {
+      "displayName": "Compute/XRayLayer/Code",
+      "source": {
+        "path": "asset.7426927073a81ee4af49a5bfb704c2d8f9ffb8099dd467cb6123ad15c2012dbd",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "666458383077-us-east-1-64b957a2": {
+          "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
+          "objectKey": "7426927073a81ee4af49a5bfb704c2d8f9ffb8099dd467cb6123ad15c2012dbd.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
+        }
+      }
+    },
+    "3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0": {
       "displayName": "Compute/WsConnectFunction/Code",
       "source": {
-        "path": "asset.629693c78234ca6afa163c319892f5fd20f2efa4daf21c03801cd58d1996677c",
+        "path": "asset.3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-224935d3": {
+        "666458383077-us-east-1-70be707f": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "629693c78234ca6afa163c319892f5fd20f2efa4daf21c03801cd58d1996677c.zip",
+          "objectKey": "3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "3ec0bda44aea58ebf84f5c6430eef0dee2c0e2461a305aed18338333a4a44a4e": {
+    "c8c1a057e52a20bf79ad1b6bae02e898c897a5b5a525453dd1c496266b0caad0": {
       "displayName": "Compute/WsDisconnectFunction/Code",
       "source": {
-        "path": "asset.3ec0bda44aea58ebf84f5c6430eef0dee2c0e2461a305aed18338333a4a44a4e",
+        "path": "asset.c8c1a057e52a20bf79ad1b6bae02e898c897a5b5a525453dd1c496266b0caad0",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-03bb9133": {
+        "666458383077-us-east-1-7a29bfca": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "3ec0bda44aea58ebf84f5c6430eef0dee2c0e2461a305aed18338333a4a44a4e.zip",
+          "objectKey": "c8c1a057e52a20bf79ad1b6bae02e898c897a5b5a525453dd1c496266b0caad0.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "38aa1b49a60133cae8d60df8a8023d4a865e7c456def666775407c6efa66cb9f": {
+    "aa431dd5d7dd6fe19d5db07f843566a649b5cc9cdc14b271019b29f48aaeb772": {
       "displayName": "Compute/WsDefaultFunction/Code",
       "source": {
-        "path": "asset.38aa1b49a60133cae8d60df8a8023d4a865e7c456def666775407c6efa66cb9f",
+        "path": "asset.aa431dd5d7dd6fe19d5db07f843566a649b5cc9cdc14b271019b29f48aaeb772",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-91febbe8": {
+        "666458383077-us-east-1-47691d27": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "38aa1b49a60133cae8d60df8a8023d4a865e7c456def666775407c6efa66cb9f.zip",
+          "objectKey": "aa431dd5d7dd6fe19d5db07f843566a649b5cc9cdc14b271019b29f48aaeb772.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "0a3e06bb3c589f28a46f6b692963704722fe8b62172d2687828de4a32e152e2b": {
+    "035ac25126e6b82417b5d3f896af845be0e2a45c8226beccb9dab02d1f26cdd2": {
       "displayName": "Compute/SfFetchDataFunction/Code",
       "source": {
-        "path": "asset.0a3e06bb3c589f28a46f6b692963704722fe8b62172d2687828de4a32e152e2b",
+        "path": "asset.035ac25126e6b82417b5d3f896af845be0e2a45c8226beccb9dab02d1f26cdd2",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-94caa3da": {
+        "666458383077-us-east-1-d092bef9": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "0a3e06bb3c589f28a46f6b692963704722fe8b62172d2687828de4a32e152e2b.zip",
+          "objectKey": "035ac25126e6b82417b5d3f896af845be0e2a45c8226beccb9dab02d1f26cdd2.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "8f3f99356459bcbec8c538c9b4e86593b7518e296c4a195a930c4964f3c2a450": {
+    "f8661679e9b1075297804ac3f436c8d92ff50c72c6a508ad945bcd1c9261ba64": {
       "displayName": "Compute/SfGenerateQuestionsFunction/Code",
       "source": {
-        "path": "asset.8f3f99356459bcbec8c538c9b4e86593b7518e296c4a195a930c4964f3c2a450",
+        "path": "asset.f8661679e9b1075297804ac3f436c8d92ff50c72c6a508ad945bcd1c9261ba64",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-a566d55e": {
+        "666458383077-us-east-1-e3b16965": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "8f3f99356459bcbec8c538c9b4e86593b7518e296c4a195a930c4964f3c2a450.zip",
+          "objectKey": "f8661679e9b1075297804ac3f436c8d92ff50c72c6a508ad945bcd1c9261ba64.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
@@ -91,106 +106,106 @@
         }
       }
     },
-    "7cd5b7a8753c391740816e08db8a0baffd5e093afda768bde8a87260373d9bc6": {
+    "37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0": {
       "displayName": "Compute/SfPersistQuestionsFunction/Code",
       "source": {
-        "path": "asset.7cd5b7a8753c391740816e08db8a0baffd5e093afda768bde8a87260373d9bc6",
+        "path": "asset.37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-01713914": {
+        "666458383077-us-east-1-58ac76f0": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "7cd5b7a8753c391740816e08db8a0baffd5e093afda768bde8a87260373d9bc6.zip",
+          "objectKey": "37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "f587ab9ec0bf4b616eb2403640d139f3c1aab7276d0365c33eb3d6d9d9142d99": {
+    "b65886366721507ac24bad137aefbbba9c2cbdb0ecd2b1d6e895109ed46444e2": {
       "displayName": "Compute/SfMarkFailedFunction/Code",
       "source": {
-        "path": "asset.f587ab9ec0bf4b616eb2403640d139f3c1aab7276d0365c33eb3d6d9d9142d99",
+        "path": "asset.b65886366721507ac24bad137aefbbba9c2cbdb0ecd2b1d6e895109ed46444e2",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-c8fb73e0": {
+        "666458383077-us-east-1-4e92dd90": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "f587ab9ec0bf4b616eb2403640d139f3c1aab7276d0365c33eb3d6d9d9142d99.zip",
+          "objectKey": "b65886366721507ac24bad137aefbbba9c2cbdb0ecd2b1d6e895109ed46444e2.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "146f35ee61280a265bb234a0bcb8b7abecfa6a5ec19d58bac516b8462b774bc9": {
+    "2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f": {
       "displayName": "Compute/GameScoreAnswerFunction/Code",
       "source": {
-        "path": "asset.146f35ee61280a265bb234a0bcb8b7abecfa6a5ec19d58bac516b8462b774bc9",
+        "path": "asset.2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-d96b3d90": {
+        "666458383077-us-east-1-0e19f5b3": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "146f35ee61280a265bb234a0bcb8b7abecfa6a5ec19d58bac516b8462b774bc9.zip",
+          "objectKey": "2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "f79c9c1c20a7a05ed8aef88be333b1b7a99797a514b12f63b7c8fc052b5cf0c4": {
+    "b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79": {
       "displayName": "Compute/GameBroadcastFunction/Code",
       "source": {
-        "path": "asset.f79c9c1c20a7a05ed8aef88be333b1b7a99797a514b12f63b7c8fc052b5cf0c4",
+        "path": "asset.b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-e625cbac": {
+        "666458383077-us-east-1-56255283": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "f79c9c1c20a7a05ed8aef88be333b1b7a99797a514b12f63b7c8fc052b5cf0c4.zip",
+          "objectKey": "b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "58b51c037257e8590933845b416c6cf1de63993419487c1277cd23a20e0e92d1": {
+    "abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce": {
       "displayName": "Compute/GameAdvanceRoundFunction/Code",
       "source": {
-        "path": "asset.58b51c037257e8590933845b416c6cf1de63993419487c1277cd23a20e0e92d1",
+        "path": "asset.abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-0524a48e": {
+        "666458383077-us-east-1-30960141": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "58b51c037257e8590933845b416c6cf1de63993419487c1277cd23a20e0e92d1.zip",
+          "objectKey": "abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e": {
+    "9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b": {
       "displayName": "Api/HttpCreateRoomFunction/Code",
       "source": {
-        "path": "asset.9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e",
+        "path": "asset.9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-4ff4e9cf": {
+        "666458383077-us-east-1-688ae923": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e.zip",
+          "objectKey": "9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "6a55d84edff8a404297c79e04876ef3e7f1942e39ee2723cdbb6933237d4702d": {
+    "ecff5372e54f3832f9806036d535edbae05ae80dbc8d9525a8f234e7daf53eec": {
       "displayName": "FootballTrivia Template",
       "source": {
         "path": "FootballTrivia.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "666458383077-us-east-1-fe87b327": {
+        "666458383077-us-east-1-89303207": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "6a55d84edff8a404297c79e04876ef3e7f1942e39ee2723cdbb6933237d4702d.json",
+          "objectKey": "ecff5372e54f3832f9806036d535edbae05ae80dbc8d9525a8f234e7daf53eec.json",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }

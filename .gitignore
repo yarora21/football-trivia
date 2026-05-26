@@ -30,5 +30,8 @@ lambdas/game_advance_round/redis-*.dist-info/
 lambdas/game_advance_round/async_timeout/
 lambdas/game_advance_round/async_timeout-*.dist-info/
 
+# X-Ray Lambda Layer (installed via pip install -r requirements.txt -t python/)
+lambdas/layers/xray/python/
+
 # OS
 .DS_Store

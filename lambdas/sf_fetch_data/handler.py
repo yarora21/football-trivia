@@ -1,6 +1,9 @@
 import json
 import re
 import urllib.request
+from aws_xray_sdk.core import patch_all
+
+patch_all()
 
 # ESPN public API base URLs (no auth required)
 _SCOREBOARD = 'https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard'

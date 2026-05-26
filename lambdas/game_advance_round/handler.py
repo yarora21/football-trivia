@@ -3,6 +3,9 @@ import os
 import time
 import boto3
 import redis
+from aws_xray_sdk.core import patch_all, xray_recorder
+
+patch_all()
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
@@ -36,7 +39,9 @@ def broadcast(room_code, message):
 
 def get_leaderboard(room_code):
     """Get top 10 from Redis sorted set with display names."""
-    top = redis_client.zrevrange(f'leaderboard:{room_code}', 0, 9, withscores=True)
+    with xray_recorder.in_subsegment('Redis') as subseg:
+        subseg.put_metadata('operation', 'ZREVRANGE')
+        top = redis_client.zrevrange(f'leaderboard:{room_code}', 0, 9, withscores=True)
     result = []
     for connection_id, score in top:
         player = table.get_item(

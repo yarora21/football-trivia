@@ -1,5 +1,8 @@
 import json
 import boto3
+from aws_xray_sdk.core import patch_all
+
+patch_all()
 
 bedrock = boto3.client('bedrock-runtime')
 

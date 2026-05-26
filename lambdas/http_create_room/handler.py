@@ -3,6 +3,9 @@ import os
 import random
 import time
 import boto3
+from aws_xray_sdk.core import patch_all
+
+patch_all()
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])

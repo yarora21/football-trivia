@@ -3,6 +3,9 @@ import os
 import time
 import boto3
 import redis
+from aws_xray_sdk.core import patch_all, xray_recorder
+
+patch_all()
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
@@ -39,7 +42,10 @@ def handler(event, context):
 
     # Check if already answered
     answered_key = f'answered:{room_code}:{question_index}'
-    if redis_client.sismember(answered_key, connection_id):
+    with xray_recorder.in_subsegment('Redis') as subseg:
+        subseg.put_metadata('operation', 'SISMEMBER')
+        already = redis_client.sismember(answered_key, connection_id)
+    if already:
         return {'already_answered': True}
 
     # Get the correct answer from DynamoDB
@@ -59,19 +65,19 @@ def handler(event, context):
     is_correct = choice_index == int(question['correct_index'])
     points = score(answered_at_ms, question_started_at_ms, is_correct)
 
-    # Mark as answered
-    redis_client.sadd(answered_key, connection_id)
-    redis_client.expire(answered_key, TTL_SECONDS)
+    # Mark as answered and update scores in Redis
+    with xray_recorder.in_subsegment('Redis') as subseg:
+        subseg.put_metadata('operation', 'score-update')
+        redis_client.sadd(answered_key, connection_id)
+        redis_client.expire(answered_key, TTL_SECONDS)
 
-    # Update score in Redis
-    if points > 0:
-        redis_client.incrby(f'score:{room_code}:{connection_id}', points)
-        redis_client.expire(f'score:{room_code}:{connection_id}', TTL_SECONDS)
+        if points > 0:
+            redis_client.incrby(f'score:{room_code}:{connection_id}', points)
+            redis_client.expire(f'score:{room_code}:{connection_id}', TTL_SECONDS)
 
-    # Update leaderboard sorted set
-    total_score = int(redis_client.get(f'score:{room_code}:{connection_id}') or 0)
-    redis_client.zadd(f'leaderboard:{room_code}', {connection_id: total_score}, gt=True)
-    redis_client.expire(f'leaderboard:{room_code}', TTL_SECONDS)
+        total_score = int(redis_client.get(f'score:{room_code}:{connection_id}') or 0)
+        redis_client.zadd(f'leaderboard:{room_code}', {connection_id: total_score}, gt=True)
+        redis_client.expire(f'leaderboard:{room_code}', TTL_SECONDS)
 
     # Write answer to DynamoDB for records
     table.put_item(Item={
@@ -85,7 +91,9 @@ def handler(event, context):
     })
 
     # Check if all players have answered
-    answer_count = redis_client.scard(answered_key)
+    with xray_recorder.in_subsegment('Redis') as subseg:
+        subseg.put_metadata('operation', 'SCARD')
+        answer_count = redis_client.scard(answered_key)
     player_count = int(room.get('player_count', 0))
     all_answered = player_count > 0 and answer_count >= player_count
 

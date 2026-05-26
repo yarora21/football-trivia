@@ -586,6 +586,25 @@
     "aws:cdk:path": "FootballTrivia/Data/TriviaRedis"
    }
   },
+  "ComputeXRayLayerCFD0C6E4": {
+   "Type": "AWS::Lambda::LayerVersion",
+   "Properties": {
+    "CompatibleRuntimes": [
+     "python3.12"
+    ],
+    "Content": {
+     "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
+     "S3Key": "7426927073a81ee4af49a5bfb704c2d8f9ffb8099dd467cb6123ad15c2012dbd.zip"
+    },
+    "Description": "AWS X-Ray SDK for Python"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/XRayLayer/Resource",
+    "aws:asset:path": "asset.7426927073a81ee4af49a5bfb704c2d8f9ffb8099dd467cb6123ad15c2012dbd",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Content"
+   }
+  },
   "ComputeWsConnectFunctionServiceRole4740DFF0": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -627,6 +646,14 @@
      "Statement": [
       {
        "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
         "dynamodb:BatchWriteItem",
         "dynamodb:DeleteItem",
         "dynamodb:DescribeTable",
@@ -660,7 +687,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "629693c78234ca6afa163c319892f5fd20f2efa4daf21c03801cd58d1996677c.zip"
+     "S3Key": "3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0.zip"
     },
     "Environment": {
      "Variables": {
@@ -671,6 +698,11 @@
     },
     "FunctionName": "trivia-ws-connect",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeWsConnectFunctionServiceRole4740DFF0",
@@ -678,7 +710,10 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 10
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
     "ComputeWsConnectFunctionServiceRoleDefaultPolicy30B59C97",
@@ -686,7 +721,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/WsConnectFunction/Resource",
-    "aws:asset:path": "asset.629693c78234ca6afa163c319892f5fd20f2efa4daf21c03801cd58d1996677c",
+    "aws:asset:path": "asset.3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -732,6 +767,14 @@
      "Statement": [
       {
        "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
         "dynamodb:BatchGetItem",
         "dynamodb:BatchWriteItem",
         "dynamodb:ConditionCheckItem",
@@ -772,7 +815,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "3ec0bda44aea58ebf84f5c6430eef0dee2c0e2461a305aed18338333a4a44a4e.zip"
+     "S3Key": "c8c1a057e52a20bf79ad1b6bae02e898c897a5b5a525453dd1c496266b0caad0.zip"
     },
     "Environment": {
      "Variables": {
@@ -783,6 +826,11 @@
     },
     "FunctionName": "trivia-ws-disconnect",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeWsDisconnectFunctionServiceRoleC2786C25",
@@ -790,7 +838,10 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 10
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
     "ComputeWsDisconnectFunctionServiceRoleDefaultPolicy93F2FE91",
@@ -798,7 +849,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/WsDisconnectFunction/Resource",
-    "aws:asset:path": "asset.3ec0bda44aea58ebf84f5c6430eef0dee2c0e2461a305aed18338333a4a44a4e",
+    "aws:asset:path": "asset.c8c1a057e52a20bf79ad1b6bae02e898c897a5b5a525453dd1c496266b0caad0",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -842,6 +893,14 @@
    "Properties": {
     "PolicyDocument": {
      "Statement": [
+      {
+       "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
       {
        "Action": [
         "dynamodb:BatchGetItem",
@@ -964,7 +1023,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "38aa1b49a60133cae8d60df8a8023d4a865e7c456def666775407c6efa66cb9f.zip"
+     "S3Key": "aa431dd5d7dd6fe19d5db07f843566a649b5cc9cdc14b271019b29f48aaeb772.zip"
     },
     "Environment": {
      "Variables": {
@@ -984,6 +1043,11 @@
     },
     "FunctionName": "trivia-ws-default",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeWsDefaultFunctionServiceRoleEE1DE54A",
@@ -991,7 +1055,10 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 10
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
     "ComputeWsDefaultFunctionServiceRoleDefaultPolicy805AD986",
@@ -999,7 +1066,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/WsDefaultFunction/Resource",
-    "aws:asset:path": "asset.38aa1b49a60133cae8d60df8a8023d4a865e7c456def666775407c6efa66cb9f",
+    "aws:asset:path": "asset.aa431dd5d7dd6fe19d5db07f843566a649b5cc9cdc14b271019b29f48aaeb772",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1038,15 +1105,47 @@
     "aws:cdk:path": "FootballTrivia/Compute/SfFetchDataFunction/ServiceRole/Resource"
    }
   },
+  "ComputeSfFetchDataFunctionServiceRoleDefaultPolicyB6BBC6A1": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeSfFetchDataFunctionServiceRoleDefaultPolicyB6BBC6A1",
+    "Roles": [
+     {
+      "Ref": "ComputeSfFetchDataFunctionServiceRole33349463"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfFetchDataFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
   "ComputeSfFetchDataFunction3111853F": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "0a3e06bb3c589f28a46f6b692963704722fe8b62172d2687828de4a32e152e2b.zip"
+     "S3Key": "035ac25126e6b82417b5d3f896af845be0e2a45c8226beccb9dab02d1f26cdd2.zip"
     },
     "FunctionName": "trivia-sf-fetch-data",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeSfFetchDataFunctionServiceRole33349463",
@@ -1054,14 +1153,18 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 30
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
+    "ComputeSfFetchDataFunctionServiceRoleDefaultPolicyB6BBC6A1",
     "ComputeSfFetchDataFunctionServiceRole33349463"
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/SfFetchDataFunction/Resource",
-    "aws:asset:path": "asset.0a3e06bb3c589f28a46f6b692963704722fe8b62172d2687828de4a32e152e2b",
+    "aws:asset:path": "asset.035ac25126e6b82417b5d3f896af845be0e2a45c8226beccb9dab02d1f26cdd2",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1106,6 +1209,14 @@
     "PolicyDocument": {
      "Statement": [
       {
+       "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
        "Action": "bedrock:InvokeModel",
        "Effect": "Allow",
        "Resource": "arn:aws:bedrock:*::foundation-model/amazon.nova-pro-v1:0"
@@ -1129,10 +1240,15 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "8f3f99356459bcbec8c538c9b4e86593b7518e296c4a195a930c4964f3c2a450.zip"
+     "S3Key": "f8661679e9b1075297804ac3f436c8d92ff50c72c6a508ad945bcd1c9261ba64.zip"
     },
     "FunctionName": "trivia-sf-generate-questions",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeSfGenerateQuestionsFunctionServiceRole6B0E9D46",
@@ -1140,7 +1256,10 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 60
+    "Timeout": 60,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
     "ComputeSfGenerateQuestionsFunctionServiceRoleDefaultPolicyA0884D9B",
@@ -1148,7 +1267,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/SfGenerateQuestionsFunction/Resource",
-    "aws:asset:path": "asset.8f3f99356459bcbec8c538c9b4e86593b7518e296c4a195a930c4964f3c2a450",
+    "aws:asset:path": "asset.f8661679e9b1075297804ac3f436c8d92ff50c72c6a508ad945bcd1c9261ba64",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1187,6 +1306,33 @@
     "aws:cdk:path": "FootballTrivia/Compute/SfValidateQuestionsFunction/ServiceRole/Resource"
    }
   },
+  "ComputeSfValidateQuestionsFunctionServiceRoleDefaultPolicy9ADA33AE": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ComputeSfValidateQuestionsFunctionServiceRoleDefaultPolicy9ADA33AE",
+    "Roles": [
+     {
+      "Ref": "ComputeSfValidateQuestionsFunctionServiceRole9279398C"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/SfValidateQuestionsFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
   "ComputeSfValidateQuestionsFunction528D8FD4": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
@@ -1203,9 +1349,13 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 10
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
+    "ComputeSfValidateQuestionsFunctionServiceRoleDefaultPolicy9ADA33AE",
     "ComputeSfValidateQuestionsFunctionServiceRole9279398C"
    ],
    "Metadata": {
@@ -1256,6 +1406,14 @@
      "Statement": [
       {
        "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
         "dynamodb:BatchWriteItem",
         "dynamodb:DeleteItem",
         "dynamodb:DescribeTable",
@@ -1289,7 +1447,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "7cd5b7a8753c391740816e08db8a0baffd5e093afda768bde8a87260373d9bc6.zip"
+     "S3Key": "37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0.zip"
     },
     "Environment": {
      "Variables": {
@@ -1300,6 +1458,11 @@
     },
     "FunctionName": "trivia-sf-persist-questions",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeSfPersistQuestionsFunctionServiceRole4D322FC1",
@@ -1307,7 +1470,10 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 30
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
     "ComputeSfPersistQuestionsFunctionServiceRoleDefaultPolicyA328067B",
@@ -1315,7 +1481,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/SfPersistQuestionsFunction/Resource",
-    "aws:asset:path": "asset.7cd5b7a8753c391740816e08db8a0baffd5e093afda768bde8a87260373d9bc6",
+    "aws:asset:path": "asset.37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1361,6 +1527,14 @@
      "Statement": [
       {
        "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
         "dynamodb:BatchWriteItem",
         "dynamodb:DeleteItem",
         "dynamodb:DescribeTable",
@@ -1394,7 +1568,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "f587ab9ec0bf4b616eb2403640d139f3c1aab7276d0365c33eb3d6d9d9142d99.zip"
+     "S3Key": "b65886366721507ac24bad137aefbbba9c2cbdb0ecd2b1d6e895109ed46444e2.zip"
     },
     "Environment": {
      "Variables": {
@@ -1405,6 +1579,11 @@
     },
     "FunctionName": "trivia-sf-mark-failed",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeSfMarkFailedFunctionServiceRole5CD9FCD5",
@@ -1412,7 +1591,10 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 10
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
     "ComputeSfMarkFailedFunctionServiceRoleDefaultPolicyDE115054",
@@ -1420,7 +1602,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/SfMarkFailedFunction/Resource",
-    "aws:asset:path": "asset.f587ab9ec0bf4b616eb2403640d139f3c1aab7276d0365c33eb3d6d9d9142d99",
+    "aws:asset:path": "asset.b65886366721507ac24bad137aefbbba9c2cbdb0ecd2b1d6e895109ed46444e2",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1482,6 +1664,14 @@
      "Statement": [
       {
        "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
         "dynamodb:BatchGetItem",
         "dynamodb:BatchWriteItem",
         "dynamodb:ConditionCheckItem",
@@ -1526,7 +1716,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "146f35ee61280a265bb234a0bcb8b7abecfa6a5ec19d58bac516b8462b774bc9.zip"
+     "S3Key": "2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f.zip"
     },
     "Environment": {
      "Variables": {
@@ -1543,6 +1733,11 @@
     },
     "FunctionName": "trivia-game-score-answer",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeGameScoreAnswerFunctionServiceRole8E6D3E75",
@@ -1551,6 +1746,9 @@
     },
     "Runtime": "python3.12",
     "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    },
     "VpcConfig": {
      "SecurityGroupIds": [
       {
@@ -1578,7 +1776,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/GameScoreAnswerFunction/Resource",
-    "aws:asset:path": "asset.146f35ee61280a265bb234a0bcb8b7abecfa6a5ec19d58bac516b8462b774bc9",
+    "aws:asset:path": "asset.2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1622,6 +1820,14 @@
    "Properties": {
     "PolicyDocument": {
      "Statement": [
+      {
+       "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
       {
        "Action": [
         "dynamodb:BatchGetItem",
@@ -1684,7 +1890,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "f79c9c1c20a7a05ed8aef88be333b1b7a99797a514b12f63b7c8fc052b5cf0c4.zip"
+     "S3Key": "b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79.zip"
     },
     "Environment": {
      "Variables": {
@@ -1707,6 +1913,11 @@
     },
     "FunctionName": "trivia-game-broadcast",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeGameBroadcastFunctionServiceRoleFA22023A",
@@ -1714,7 +1925,10 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 10
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
     "ComputeGameBroadcastFunctionServiceRoleDefaultPolicyB10C0F81",
@@ -1722,15 +1936,36 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/GameBroadcastFunction/Resource",
-    "aws:asset:path": "asset.f79c9c1c20a7a05ed8aef88be333b1b7a99797a514b12f63b7c8fc052b5cf0c4",
+    "aws:asset:path": "asset.b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
+   }
+  },
+  "ComputeAdvanceDLQFE51D71D": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "MessageRetentionPeriod": 1209600,
+    "QueueName": "trivia-advance-round-dlq"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Compute/AdvanceDLQ/Resource"
    }
   },
   "ComputeAdvanceQueue831BBFC6": {
    "Type": "AWS::SQS::Queue",
    "Properties": {
     "QueueName": "trivia-advance-round",
+    "RedrivePolicy": {
+     "deadLetterTargetArn": {
+      "Fn::GetAtt": [
+       "ComputeAdvanceDLQFE51D71D",
+       "Arn"
+      ]
+     },
+     "maxReceiveCount": 3
+    },
     "VisibilityTimeout": 60
    },
    "UpdateReplacePolicy": "Delete",
@@ -1794,6 +2029,14 @@
    "Properties": {
     "PolicyDocument": {
      "Statement": [
+      {
+       "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
       {
        "Action": [
         "dynamodb:BatchGetItem",
@@ -1883,7 +2126,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "58b51c037257e8590933845b416c6cf1de63993419487c1277cd23a20e0e92d1.zip"
+     "S3Key": "abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce.zip"
     },
     "Environment": {
      "Variables": {
@@ -1906,6 +2149,11 @@
     },
     "FunctionName": "trivia-game-advance-round",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ComputeGameAdvanceRoundFunctionServiceRole3BE7C6C0",
@@ -1914,6 +2162,9 @@
     },
     "Runtime": "python3.12",
     "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    },
     "VpcConfig": {
      "SecurityGroupIds": [
       {
@@ -1941,7 +2192,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/GameAdvanceRoundFunction/Resource",
-    "aws:asset:path": "asset.58b51c037257e8590933845b416c6cf1de63993419487c1277cd23a20e0e92d1",
+    "aws:asset:path": "asset.abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -2097,6 +2348,16 @@
          ]
         }
        ]
+      },
+      {
+       "Action": [
+        "xray:GetSamplingRules",
+        "xray:GetSamplingTargets",
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
       }
      ],
      "Version": "2012-10-17"
@@ -2185,7 +2446,10 @@
      ]
     },
     "StateMachineName": "RoomCreationPipeline",
-    "StateMachineType": "STANDARD"
+    "StateMachineType": "STANDARD",
+    "TracingConfiguration": {
+     "Enabled": true
+    }
    },
    "DependsOn": [
     "OrchestrationRoomCreationPipelineRoleDefaultPolicy4E048928",
@@ -2672,7 +2936,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e.zip"
+     "S3Key": "9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b.zip"
     },
     "Environment": {
      "Variables": {
@@ -2701,15 +2965,1011 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Api/HttpCreateRoomFunction/Resource",
-    "aws:asset:path": "asset.9779f695844a16b85ab23a6c9db9052e41075b4a3f9692fdfca2c10a52a4f00e",
+    "aws:asset:path": "asset.9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
+   }
+  },
+  "ObservabilityAlertTopic4533A39D": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "DisplayName": "Trivia Game Alerts",
+    "TopicName": "trivia-alerts"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/AlertTopic/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm0D54285D4": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeWsConnectFunction478BA5CB"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeWsConnectFunction478BA5CB"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm0/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm12DAEF74B": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeWsDisconnectFunction93B1992C"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeWsDisconnectFunction93B1992C"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm1/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm21721780D": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeWsDefaultFunction0804DED1"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeWsDefaultFunction0804DED1"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm2/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm3BC6A6913": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeGameScoreAnswerFunction00B19055"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeGameScoreAnswerFunction00B19055"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm3/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm417D76BC2": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeGameBroadcastFunctionDD19B898"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeGameBroadcastFunctionDD19B898"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm4/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm5C420A391": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeGameAdvanceRoundFunctionC55539EB"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeGameAdvanceRoundFunctionC55539EB"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm5/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm608ED371D": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeSfFetchDataFunction3111853F"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeSfFetchDataFunction3111853F"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm6/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm7906247CB": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeSfGenerateQuestionsFunction13AFDB39"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeSfGenerateQuestionsFunction13AFDB39"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm7/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm802407822": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeSfValidateQuestionsFunction528D8FD4"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeSfValidateQuestionsFunction528D8FD4"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm8/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm9485DC504": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeSfPersistQuestionsFunctionF0295637"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeSfPersistQuestionsFunctionF0295637"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm9/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorAlarm103FB089C6": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmName": {
+     "Fn::Join": [
+      "",
+      [
+       "trivia-lambda-errors-",
+       {
+        "Ref": "ComputeSfMarkFailedFunction87191C9B"
+       }
+      ]
+     ]
+    },
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeSfMarkFailedFunction87191C9B"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "Errors",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorAlarm10/Resource"
+   }
+  },
+  "ObservabilityLambdaErrorCompositeF232244B": {
+   "Type": "AWS::CloudWatch::CompositeAlarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "ObservabilityAlertTopic4533A39D"
+     }
+    ],
+    "AlarmName": "trivia-lambda-errors",
+    "AlarmRule": {
+     "Fn::Join": [
+      "",
+      [
+       "(ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm0D54285D4",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm12DAEF74B",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm21721780D",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm3BC6A6913",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm417D76BC2",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm5C420A391",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm608ED371D",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm7906247CB",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm802407822",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm9485DC504",
+         "Arn"
+        ]
+       },
+       "\") OR ALARM(\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorAlarm103FB089C6",
+         "Arn"
+        ]
+       },
+       "\"))"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/LambdaErrorComposite/Resource"
+   }
+  },
+  "ObservabilitySfnFailAlarmBA529C6F": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "ObservabilityAlertTopic4533A39D"
+     }
+    ],
+    "AlarmDescription": "Step Function execution failed",
+    "AlarmName": "trivia-sfn-failures",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "StateMachineArn",
+      "Value": {
+       "Ref": "OrchestrationRoomCreationPipeline44FF785D"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "ExecutionsFailed",
+    "Namespace": "AWS/States",
+    "Period": 300,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/SfnFailAlarm/Resource"
+   }
+  },
+  "ObservabilityDynamoThrottleAlarmC19E9281": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "ObservabilityAlertTopic4533A39D"
+     }
+    ],
+    "AlarmDescription": "DynamoDB throttling detected",
+    "AlarmName": "trivia-dynamo-throttles",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "EvaluationPeriods": 1,
+    "Metrics": [
+     {
+      "Expression": "reads + writes",
+      "Id": "expr_1",
+      "ReturnData": true
+     },
+     {
+      "Expression": "getitem + query",
+      "Id": "reads",
+      "Label": "Sum of throttled requests across all operations",
+      "ReturnData": false
+     },
+     {
+      "Id": "getitem",
+      "MetricStat": {
+       "Metric": {
+        "Dimensions": [
+         {
+          "Name": "Operation",
+          "Value": "GetItem"
+         },
+         {
+          "Name": "TableName",
+          "Value": {
+           "Ref": "DataTriviaTable5DE02139"
+          }
+         }
+        ],
+        "MetricName": "ThrottledRequests",
+        "Namespace": "AWS/DynamoDB"
+       },
+       "Period": 300,
+       "Stat": "Sum"
+      },
+      "ReturnData": false
+     },
+     {
+      "Id": "query",
+      "MetricStat": {
+       "Metric": {
+        "Dimensions": [
+         {
+          "Name": "Operation",
+          "Value": "Query"
+         },
+         {
+          "Name": "TableName",
+          "Value": {
+           "Ref": "DataTriviaTable5DE02139"
+          }
+         }
+        ],
+        "MetricName": "ThrottledRequests",
+        "Namespace": "AWS/DynamoDB"
+       },
+       "Period": 300,
+       "Stat": "Sum"
+      },
+      "ReturnData": false
+     },
+     {
+      "Expression": "putitem + updateitem",
+      "Id": "writes",
+      "Label": "Sum of throttled requests across all operations",
+      "ReturnData": false
+     },
+     {
+      "Id": "putitem",
+      "MetricStat": {
+       "Metric": {
+        "Dimensions": [
+         {
+          "Name": "Operation",
+          "Value": "PutItem"
+         },
+         {
+          "Name": "TableName",
+          "Value": {
+           "Ref": "DataTriviaTable5DE02139"
+          }
+         }
+        ],
+        "MetricName": "ThrottledRequests",
+        "Namespace": "AWS/DynamoDB"
+       },
+       "Period": 300,
+       "Stat": "Sum"
+      },
+      "ReturnData": false
+     },
+     {
+      "Id": "updateitem",
+      "MetricStat": {
+       "Metric": {
+        "Dimensions": [
+         {
+          "Name": "Operation",
+          "Value": "UpdateItem"
+         },
+         {
+          "Name": "TableName",
+          "Value": {
+           "Ref": "DataTriviaTable5DE02139"
+          }
+         }
+        ],
+        "MetricName": "ThrottledRequests",
+        "Namespace": "AWS/DynamoDB"
+       },
+       "Period": 300,
+       "Stat": "Sum"
+      },
+      "ReturnData": false
+     }
+    ],
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/DynamoThrottleAlarm/Resource"
+   }
+  },
+  "ObservabilitySqsMessageAgeAlarmD264C696": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "ObservabilityAlertTopic4533A39D"
+     }
+    ],
+    "AlarmDescription": "SQS messages stuck for over 2 minutes",
+    "AlarmName": "trivia-sqs-message-age",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "QueueName",
+      "Value": {
+       "Fn::GetAtt": [
+        "ComputeAdvanceQueue831BBFC6",
+        "QueueName"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "ApproximateAgeOfOldestMessage",
+    "Namespace": "AWS/SQS",
+    "Period": 300,
+    "Statistic": "Maximum",
+    "Threshold": 120,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/SqsMessageAgeAlarm/Resource"
+   }
+  },
+  "ObservabilityDlqAlarmC01666B1": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "ObservabilityAlertTopic4533A39D"
+     }
+    ],
+    "AlarmDescription": "Dead letter queue has messages — investigate failed SQS processing",
+    "AlarmName": "trivia-dlq-messages",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "QueueName",
+      "Value": {
+       "Fn::GetAtt": [
+        "ComputeAdvanceDLQFE51D71D",
+        "QueueName"
+       ]
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "ApproximateNumberOfMessagesVisible",
+    "Namespace": "AWS/SQS",
+    "Period": 300,
+    "Statistic": "Maximum",
+    "Threshold": 1,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/DlqAlarm/Resource"
+   }
+  },
+  "ObservabilityWsDefaultLatencyAlarm4755B2F8": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "ObservabilityAlertTopic4533A39D"
+     }
+    ],
+    "AlarmDescription": "ws_default P95 latency exceeds 5 seconds",
+    "AlarmName": "trivia-ws-default-p95-latency",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "Dimensions": [
+     {
+      "Name": "FunctionName",
+      "Value": {
+       "Ref": "ComputeWsDefaultFunction0804DED1"
+      }
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "ExtendedStatistic": "p95",
+    "MetricName": "Duration",
+    "Namespace": "AWS/Lambda",
+    "Period": 300,
+    "Threshold": 5000,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/WsDefaultLatencyAlarm/Resource"
+   }
+  },
+  "ObservabilityTriviaGameDashboard5B453B54": {
+   "Type": "AWS::CloudWatch::Dashboard",
+   "Properties": {
+    "DashboardBody": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"widgets\":[{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":0,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Lambda Errors\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeWsConnectFunction478BA5CB"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeWsDisconnectFunction93B1992C"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeWsDefaultFunction0804DED1"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameScoreAnswerFunction00B19055"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameBroadcastFunctionDD19B898"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameAdvanceRoundFunctionC55539EB"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfFetchDataFunction3111853F"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfGenerateQuestionsFunction13AFDB39"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfValidateQuestionsFunction528D8FD4"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfPersistQuestionsFunctionF0295637"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Errors\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfMarkFailedFunction87191C9B"
+       },
+       "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":12,\"y\":0,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Lambda Duration (P95) — Game Critical\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeWsDefaultFunction0804DED1"
+       },
+       "\",{\"stat\":\"p95\"}],[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameScoreAnswerFunction00B19055"
+       },
+       "\",{\"stat\":\"p95\"}],[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameAdvanceRoundFunctionC55539EB"
+       },
+       "\",{\"stat\":\"p95\"}],[\"AWS/Lambda\",\"Duration\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameBroadcastFunctionDD19B898"
+       },
+       "\",{\"stat\":\"p95\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":24,\"height\":6,\"x\":0,\"y\":6,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Lambda Invocations\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"stacked\":true,\"metrics\":[[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeWsConnectFunction478BA5CB"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeWsDisconnectFunction93B1992C"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeWsDefaultFunction0804DED1"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameScoreAnswerFunction00B19055"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameBroadcastFunctionDD19B898"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeGameAdvanceRoundFunctionC55539EB"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfFetchDataFunction3111853F"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfGenerateQuestionsFunction13AFDB39"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfValidateQuestionsFunction528D8FD4"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfPersistQuestionsFunctionF0295637"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/Lambda\",\"Invocations\",\"FunctionName\",\"",
+       {
+        "Ref": "ComputeSfMarkFailedFunction87191C9B"
+       },
+       "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":0,\"y\":12,\"properties\":{\"view\":\"timeSeries\",\"title\":\"DynamoDB Consumed Capacity\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/DynamoDB\",\"ConsumedReadCapacityUnits\",\"TableName\",\"",
+       {
+        "Ref": "DataTriviaTable5DE02139"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/DynamoDB\",\"ConsumedWriteCapacityUnits\",\"TableName\",\"",
+       {
+        "Ref": "DataTriviaTable5DE02139"
+       },
+       "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":12,\"y\":12,\"properties\":{\"view\":\"timeSeries\",\"title\":\"DynamoDB Throttles\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[{\"label\":\"Sum of throttled requests across all operations\",\"expression\":\"getitem + query\"}],[\"AWS/DynamoDB\",\"ThrottledRequests\",\"Operation\",\"GetItem\",\"TableName\",\"",
+       {
+        "Ref": "DataTriviaTable5DE02139"
+       },
+       "\",{\"id\":\"getitem\",\"visible\":false,\"stat\":\"Sum\"}],[\"AWS/DynamoDB\",\"ThrottledRequests\",\"Operation\",\"Query\",\"TableName\",\"",
+       {
+        "Ref": "DataTriviaTable5DE02139"
+       },
+       "\",{\"id\":\"query\",\"visible\":false,\"stat\":\"Sum\"}],[{\"label\":\"Sum of throttled requests across all operations\",\"expression\":\"putitem + updateitem\"}],[\"AWS/DynamoDB\",\"ThrottledRequests\",\"Operation\",\"PutItem\",\"TableName\",\"",
+       {
+        "Ref": "DataTriviaTable5DE02139"
+       },
+       "\",{\"id\":\"putitem\",\"visible\":false,\"stat\":\"Sum\"}],[\"AWS/DynamoDB\",\"ThrottledRequests\",\"Operation\",\"UpdateItem\",\"TableName\",\"",
+       {
+        "Ref": "DataTriviaTable5DE02139"
+       },
+       "\",{\"id\":\"updateitem\",\"visible\":false,\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":0,\"y\":18,\"properties\":{\"view\":\"timeSeries\",\"title\":\"SQS Advance Queue\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/SQS\",\"ApproximateNumberOfMessagesVisible\",\"QueueName\",\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeAdvanceQueue831BBFC6",
+         "QueueName"
+        ]
+       },
+       "\",{\"stat\":\"Maximum\"}],[\"AWS/SQS\",\"ApproximateAgeOfOldestMessage\",\"QueueName\",\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeAdvanceQueue831BBFC6",
+         "QueueName"
+        ]
+       },
+       "\",{\"stat\":\"Maximum\"}],[\"AWS/SQS\",\"NumberOfMessagesSent\",\"QueueName\",\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeAdvanceQueue831BBFC6",
+         "QueueName"
+        ]
+       },
+       "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":12,\"y\":18,\"properties\":{\"view\":\"timeSeries\",\"title\":\"Step Functions — Room Creation\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/States\",\"ExecutionsStarted\",\"StateMachineArn\",\"",
+       {
+        "Ref": "OrchestrationRoomCreationPipeline44FF785D"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/States\",\"ExecutionsSucceeded\",\"StateMachineArn\",\"",
+       {
+        "Ref": "OrchestrationRoomCreationPipeline44FF785D"
+       },
+       "\",{\"stat\":\"Sum\"}],[\"AWS/States\",\"ExecutionsFailed\",\"StateMachineArn\",\"",
+       {
+        "Ref": "OrchestrationRoomCreationPipeline44FF785D"
+       },
+       "\",{\"stat\":\"Sum\"}]],\"yAxis\":{}}},{\"type\":\"metric\",\"width\":12,\"height\":6,\"x\":0,\"y\":24,\"properties\":{\"view\":\"timeSeries\",\"title\":\"DLQ Messages\",\"region\":\"",
+       {
+        "Ref": "AWS::Region"
+       },
+       "\",\"metrics\":[[\"AWS/SQS\",\"ApproximateNumberOfMessagesVisible\",\"QueueName\",\"",
+       {
+        "Fn::GetAtt": [
+         "ComputeAdvanceDLQFE51D71D",
+         "QueueName"
+        ]
+       },
+       "\",{\"stat\":\"Maximum\"}]],\"yAxis\":{}}},{\"type\":\"alarm\",\"width\":12,\"height\":3,\"x\":12,\"y\":24,\"properties\":{\"title\":\"Alarm Status\",\"alarms\":[\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityLambdaErrorCompositeF232244B",
+         "Arn"
+        ]
+       },
+       "\",\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilitySfnFailAlarmBA529C6F",
+         "Arn"
+        ]
+       },
+       "\",\"",
+       {
+        "Fn::GetAtt": [
+         "ObservabilityDynamoThrottleAlarmC19E9281",
+         "Arn"
+        ]
+       },
+       "\"]}}]}"
+      ]
+     ]
+    },
+    "DashboardName": "TriviaGameDashboard"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FootballTrivia/Observability/TriviaGameDashboard/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31R0W7bMAz8lr4rWudgH5AGXRdgxbJ4yB4DWmZc1bakiZSDQPC/D5JTJy2GPd3xdKSIYyGLL0t5fwcnWqi6XXS6krFkUK2AEx1ifTbQ27qS8RdUHYr10WQyClSFjHunkrTfrsXW6wEYy1AZ5CRe2c4Gxrl/0q/aisgqDaytEU/AeILz3qlHUzurDV/Gz+XGMPojKLz1lKiC13x+8ja4/Md/hY1pPBKNAjsg1grUC8o4r3bT5Af0HRKtk2UUHfRVDTJ+DUblfddHM/PHAQ2XNniFz+CcNk16/re6Rd9rIm3NKDT0Mu7sFE7Gre20OmdfZqOg5QGIkEmuEghayoegWuQHIBT0h2T8GTDkEZmMghjd8bIbHRioJfk9778xg23xvUHGMiiFWIuSgfEZ1Is207lu6lGA0810o6GQ8TdWpU1rrJxO3gSzli98LdPhGg9vsX0oP5hLhubt9wbFN2aXZie8KlNPYjfDxlHskHLeImeV/JfUfwR2gUdhbI3ylT4NRSE/F/L+7pW0XvhgWPcodxP+BVX9xpYaAwAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31S0W7bMAz8lr4rWudgH5BmbRegxbK4yB4DWmYcNbakiVSCwNC/D5JTJw2GPfF4PFKUToUsvk3l/R0caaLq/aTVlexLBrUXcKRNX58MdLauZP8GVYtivjUZRIGqkP3aqUStl3Ox9PoAjGWoDHIiL2hlA+PYP/AXbkZklQbW1ohnYDzCae3Uo6md1YbP48d0YRj9FhRea0pUwWs+PXsbXD7jv8TCNB6JosAWiLUCtUPZj6tdNfkD+haJ5kkSRQtdVYPsX+CEfo2e0s7zrfmUPwWj+FwY8eMBDZc2eIWv4Jw2TSr/m12i7zSlWVHQdANEyCRnKQiayoeg9sgPQCg0dLJf2eFdc1zaVqtTnpJRFPSHZP8rYMiiDKIgRrc970YbBtqTfMmXW5iD3eNngezLoBRiLUoGxldQO20GL6/yKMDpZjDwUMj+N1alTavOnE7aFEYu239Jk6uNh49nu0lvxCVD83F6g+IHs0uzU7wwQ09CV8OioHSbN+t0/rcZRKFaG+ojsNrJftaC7/K6A7Cds6QZR/6G+Q60qyz4OtXGJEaxQsrGimxcWuxs78/ALnAUxtYo3+nLoSjk10Le372T1hMfDOsO5WqIfwEqDAC1oAMAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/CDKMetadata/Default"
