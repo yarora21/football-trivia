@@ -34,6 +34,7 @@ export class TriviaStack extends cdk.Stack {
       gameBroadcastFn: compute.gameBroadcastFn,
       table: data.table,
       stateMachine: orchestration.stateMachine,
+      xrayLayer: compute.xrayLayer,
     });
 
     new ObservabilityConstruct(this, 'Observability', {

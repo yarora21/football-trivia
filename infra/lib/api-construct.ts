@@ -14,6 +14,7 @@ interface ApiConstructProps {
   gameBroadcastFn: lambda.Function;
   table: dynamodb.Table;
   stateMachine: sfn.StateMachine;
+  xrayLayer: lambda.ILayerVersion;
 }
 
 export class ApiConstruct extends Construct {
@@ -79,6 +80,8 @@ export class ApiConstruct extends Construct {
       code: lambda.Code.fromAsset('../lambdas/http_create_room'),
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(10),
+      tracing: lambda.Tracing.ACTIVE,
+      layers: [props.xrayLayer],
       environment: {
         TABLE_NAME: props.table.tableName,
         STATE_MACHINE_ARN: props.stateMachine.stateMachineArn,

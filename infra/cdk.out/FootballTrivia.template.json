@@ -1137,7 +1137,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "035ac25126e6b82417b5d3f896af845be0e2a45c8226beccb9dab02d1f26cdd2.zip"
+     "S3Key": "dc32dab50e7d40290c2d128df72d196c5db860556c526d806b25d6f3bcef37f3.zip"
     },
     "FunctionName": "trivia-sf-fetch-data",
     "Handler": "handler.handler",
@@ -1164,7 +1164,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/SfFetchDataFunction/Resource",
-    "aws:asset:path": "asset.035ac25126e6b82417b5d3f896af845be0e2a45c8226beccb9dab02d1f26cdd2",
+    "aws:asset:path": "asset.dc32dab50e7d40290c2d128df72d196c5db860556c526d806b25d6f3bcef37f3",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1240,7 +1240,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "f8661679e9b1075297804ac3f436c8d92ff50c72c6a508ad945bcd1c9261ba64.zip"
+     "S3Key": "a7138dd2c41fe5c6655b79a5a442cf41613b5d8e467f3e2fb2a0056395726e36.zip"
     },
     "FunctionName": "trivia-sf-generate-questions",
     "Handler": "handler.handler",
@@ -1267,7 +1267,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/SfGenerateQuestionsFunction/Resource",
-    "aws:asset:path": "asset.f8661679e9b1075297804ac3f436c8d92ff50c72c6a508ad945bcd1c9261ba64",
+    "aws:asset:path": "asset.a7138dd2c41fe5c6655b79a5a442cf41613b5d8e467f3e2fb2a0056395726e36",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -2896,6 +2896,14 @@
      "Statement": [
       {
        "Action": [
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": [
         "dynamodb:BatchWriteItem",
         "dynamodb:DeleteItem",
         "dynamodb:DescribeTable",
@@ -2950,6 +2958,11 @@
     },
     "FunctionName": "trivia-http-create-room",
     "Handler": "handler.handler",
+    "Layers": [
+     {
+      "Ref": "ComputeXRayLayerCFD0C6E4"
+     }
+    ],
     "Role": {
      "Fn::GetAtt": [
       "ApiHttpCreateRoomFunctionServiceRoleA3D408B1",
@@ -2957,7 +2970,10 @@
      ]
     },
     "Runtime": "python3.12",
-    "Timeout": 10
+    "Timeout": 10,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
    },
    "DependsOn": [
     "ApiHttpCreateRoomFunctionServiceRoleDefaultPolicyDE68EF65",

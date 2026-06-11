@@ -53,3 +53,11 @@ This works because `aws-xray-sdk` is pure Python (no compiled C extensions), so 
 **Solution**: Used `xray_recorder.in_subsegment('Redis')` to manually wrap Redis calls. This creates named subsegments that appear in the trace waterfall alongside auto-instrumented DynamoDB calls.
 
 **Lesson**: `patch_all()` only covers AWS's curated list of libraries. For anything else, use manual subsegments.
+
+### 6. http_create_room Missing the X-Ray Layer
+
+**Problem**: After deploying, `http_create_room` crashed with `No module named 'aws_xray_sdk'`. We added `patch_all()` to the handler but forgot to attach the X-Ray layer — because this Lambda is defined in `api-construct.ts`, not `compute-construct.ts` where all the other Lambdas got the layer.
+
+**Solution**: Exposed the layer as `this.xrayLayer` from the compute construct, passed it into the API construct via props, and added `layers: [props.xrayLayer]` to the function.
+
+**Lesson**: When a shared dependency (like a layer) is needed by resources across multiple constructs, make sure every construct that needs it receives it. Easy to miss when Lambdas are spread across different files.

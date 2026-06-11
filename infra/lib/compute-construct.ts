@@ -28,13 +28,14 @@ export class ComputeConstruct extends Construct {
   public readonly sfMarkFailedFn: lambda.Function;
   public readonly advanceQueue: sqs.Queue;
   public readonly deadLetterQueue: sqs.Queue;
+  public readonly xrayLayer: lambda.LayerVersion;
 
   constructor(scope: Construct, id: string, props: ComputeConstructProps) {
     super(scope, id);
 
     // X-Ray SDK Lambda Layer — shared by all Lambdas that make downstream calls
     // Built locally: cd lambdas/layers/xray && pip install -r requirements.txt -t python/
-    const xrayLayer = new lambda.LayerVersion(this, 'XRayLayer', {
+    this.xrayLayer = new lambda.LayerVersion(this, 'XRayLayer', {
       code: lambda.Code.fromAsset('../lambdas/layers/xray'),
       compatibleRuntimes: [lambda.Runtime.PYTHON_3_12],
       description: 'AWS X-Ray SDK for Python',
@@ -47,7 +48,7 @@ export class ComputeConstruct extends Construct {
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(10),
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
       environment: {
         TABLE_NAME: props.table.tableName,
       },
@@ -61,7 +62,7 @@ export class ComputeConstruct extends Construct {
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(10),
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
       environment: {
         TABLE_NAME: props.table.tableName,
       },
@@ -75,7 +76,7 @@ export class ComputeConstruct extends Construct {
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(10),
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
     });
 
     this.sfFetchDataFn = new lambda.Function(this, 'SfFetchDataFunction', {
@@ -85,7 +86,7 @@ export class ComputeConstruct extends Construct {
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(30),
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
     });
 
     this.sfGenerateQuestionsFn = new lambda.Function(this, 'SfGenerateQuestionsFunction', {
@@ -95,7 +96,7 @@ export class ComputeConstruct extends Construct {
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(60),
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
     });
     this.sfGenerateQuestionsFn.addToRolePolicy(new iam.PolicyStatement({
       actions: ['bedrock:InvokeModel'],
@@ -120,7 +121,7 @@ export class ComputeConstruct extends Construct {
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(30),
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
       environment: {
         TABLE_NAME: props.table.tableName,
       },
@@ -134,7 +135,7 @@ export class ComputeConstruct extends Construct {
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(10),
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
       environment: {
         TABLE_NAME: props.table.tableName,
       },
@@ -148,7 +149,7 @@ export class ComputeConstruct extends Construct {
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
       securityGroups: [props.lambdaSecurityGroup],
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
       environment: {
         TABLE_NAME: props.table.tableName,
         REDIS_HOST: props.redisEndpoint,
@@ -171,7 +172,7 @@ export class ComputeConstruct extends Construct {
       handler: 'handler.handler',
       timeout: cdk.Duration.seconds(10),
       tracing: lambda.Tracing.ACTIVE,
-      layers: [xrayLayer],
+      layers: [this.xrayLayer],
       environment: {
         TABLE_NAME: props.table.tableName,
       },
