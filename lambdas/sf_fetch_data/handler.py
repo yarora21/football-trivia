@@ -1,6 +1,7 @@
 import json
 import re
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from aws_xray_sdk.core import patch_all
 
 patch_all()
@@ -95,14 +96,95 @@ def _format_team(data):
     return result
 
 
+def _resolve_athlete(ref_url):
+    """Fetch an athlete $ref URL and return a profile dict."""
+    try:
+        data = _fetch_json(ref_url)
+        profile = {
+            'name': data.get('displayName', ''),
+            'position': data.get('position', {}).get('abbreviation', ''),
+            'jersey': data.get('jersey', ''),
+            'age': data.get('age', ''),
+            'birthPlace': data.get('birthPlace', {}),
+            'draft': data.get('draft', {}),
+            'debutYear': data.get('debutYear', ''),
+            'experience': data.get('experience', {}).get('years', ''),
+            'height': data.get('displayHeight', ''),
+            'weight': data.get('displayWeight', ''),
+        }
+        # Resolve college name (one extra call)
+        college_ref = data.get('college', {}).get('$ref', '')
+        if college_ref:
+            try:
+                college_data = _fetch_json(college_ref)
+                profile['college'] = college_data.get('name', '')
+            except Exception:
+                profile['college'] = ''
+        return profile
+    except Exception as e:
+        print(f'Failed to resolve athlete: {e}')
+        return None
+
+
+def _build_player_line(profile, cat_name, rank, stat_value):
+    """Format a single player profile into a grounding fact line."""
+    draft = profile.get('draft', {})
+    bp = profile.get('birthPlace', {})
+    birth = f"{bp.get('city', '')}, {bp.get('state', '')}".strip(', ')
+
+    parts = [
+        f'#{rank} {cat_name}: {profile["name"]} ({profile.get("position", "")}, #{profile.get("jersey", "")})',
+        f'{stat_value}',
+    ]
+    if profile.get('college'):
+        parts.append(f'College: {profile["college"]}')
+    if draft.get('year'):
+        parts.append(f'Draft: {draft["year"]} Rd {draft.get("round", "?")} Pick {draft.get("selection", "?")}')
+    if profile.get('debutYear'):
+        parts.append(f'Debut: {profile["debutYear"]}')
+    if birth:
+        parts.append(f'From: {birth}')
+    if profile.get('experience'):
+        parts.append(f'Exp: {profile["experience"]} yrs')
+    if profile.get('height') and profile.get('weight'):
+        parts.append(f'{profile["height"]}, {profile["weight"]}')
+    return ' | '.join(parts)
+
+
 def _format_leaders(data):
-    lines = []
+    # Collect all athlete refs we need to resolve
+    refs_to_fetch = []  # list of (cat_name, rank, stat_value, ref_url)
     for cat in data.get('categories', [])[:5]:
-        cat_name = cat.get('name', '')
-        for leader in cat.get('leaders', [])[:3]:
-            athlete = leader.get('athlete', {}).get('displayName', '')
-            value = leader.get('displayValue', '')
-            lines.append(f'{cat_name}: {athlete} — {value}')
+        cat_name = cat.get('displayName', cat.get('name', ''))
+        for rank, leader in enumerate(cat.get('leaders', [])[:3], 1):
+            ref_url = leader.get('athlete', {}).get('$ref', '')
+            stat_value = leader.get('displayValue', '')
+            if ref_url:
+                refs_to_fetch.append((cat_name, rank, stat_value, ref_url))
+
+    if not refs_to_fetch:
+        return ''
+
+    # Resolve all athlete profiles in parallel
+    profiles = {}  # ref_url -> profile
+    with ThreadPoolExecutor(max_workers=10) as pool:
+        future_to_ref = {
+            pool.submit(_resolve_athlete, ref_url): ref_url
+            for _, _, _, ref_url in refs_to_fetch
+        }
+        for future in as_completed(future_to_ref):
+            ref_url = future_to_ref[future]
+            result = future.result()
+            if result:
+                profiles[ref_url] = result
+
+    # Build the formatted output
+    lines = []
+    for cat_name, rank, stat_value, ref_url in refs_to_fetch:
+        profile = profiles.get(ref_url)
+        if profile:
+            lines.append(_build_player_line(profile, cat_name, rank, stat_value))
+
     return 'Season leaders:\n' + '\n'.join(lines) if lines else ''
 
 

@@ -25,6 +25,9 @@ Requirements:
 - Mix of difficulties: 30% easy, 50% medium, 20% hard.
 - Avoid questions answerable by general knowledge alone — they must require NFL knowledge.
 - No "all of the above" or "none of the above".
+- For "who" questions, choices must be player or team names — NEVER raw stats or numbers.
+- Wrong choices should be plausible (same position, same era) but clearly different from the correct answer.
+- Use the player profiles (college, draft, birthplace, etc.) to create diverse question types, not just stat-based questions.
 - Question prompts under 200 characters. Choices under 80 characters.
 - Use standard NFL terminology (touchdowns, sacks, interceptions, yards, etc.) — not soccer terms.
 
