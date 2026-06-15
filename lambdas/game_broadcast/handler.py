@@ -17,14 +17,24 @@ def handler(event, context):
     room_code = event['room_code']
     message = event.get('message', event)
 
-    # Get all players in this room
-    response = table.query(
-        KeyConditionExpression=Key('pk').eq(f'ROOM#{room_code}') & Key('sk').begins_with('PLAYER#'),
-    )
+    # Get all players in this room. A single query returns at most 1MB of
+    # items, so for large rooms we must follow LastEvaluatedKey — otherwise
+    # players beyond the first page never receive the message.
+    items = []
+    query_kwargs = {
+        'KeyConditionExpression': Key('pk').eq(f'ROOM#{room_code}') & Key('sk').begins_with('PLAYER#'),
+    }
+    while True:
+        response = table.query(**query_kwargs)
+        items.extend(response.get('Items', []))
+        last_key = response.get('LastEvaluatedKey')
+        if not last_key:
+            break
+        query_kwargs['ExclusiveStartKey'] = last_key
 
     stale_connections = []
 
-    for item in response.get('Items', []):
+    for item in items:
         connection_id = item['sk'].replace('PLAYER#', '')
         try:
             apigw.post_to_connection(
@@ -44,4 +54,4 @@ def handler(event, context):
         except Exception as e:
             print(f'Failed to clean up {connection_id}: {e}')
 
-    return {'sent': len(response.get('Items', [])) - len(stale_connections)}
+    return {'sent': len(items) - len(stale_connections)}
