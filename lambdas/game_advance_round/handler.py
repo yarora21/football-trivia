@@ -23,6 +23,10 @@ redis_client = redis.Redis(
 QUEUE_URL = os.environ['QUEUE_URL']
 BROADCAST_FN_NAME = os.environ['BROADCAST_FN_NAME']
 QUESTION_DURATION_MS = 15_000
+# How long the answer reveal + leaderboard stays on screen before the next
+# question is broadcast. Without this pause the reveal, leaderboard, and next
+# question are sent back-to-back and the leaderboard only flashes for players.
+REVEAL_PAUSE_SECONDS = 1
 
 
 def broadcast(room_code, message):
@@ -91,6 +95,10 @@ def handler(event, context):
             'type': 'leaderboard.update',
             'top': leaderboard,
         })
+
+        # Hold the reveal + leaderboard on screen before advancing so players
+        # can actually read it instead of seeing it flash by.
+        time.sleep(REVEAL_PAUSE_SECONDS)
 
         # Check if this was the last question
         question_count = int(room.get('question_count', 10))

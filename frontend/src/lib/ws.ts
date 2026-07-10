@@ -17,13 +17,17 @@ export function useWebSocket(
   const [status, setStatus] = useState<ConnectionStatus>('connecting');
   const wsRef = useRef<WebSocket | null>(null);
   const backoffRef = useRef(1000);       // current reconnect delay in ms
-  const heartbeatRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const unmountedRef = useRef(false);    // prevents reconnecting after unmount
   const onMessageRef = useRef(onMessage);
   onMessageRef.current = onMessage;      // always points to latest callback
 
   useEffect(() => {
-    unmountedRef.current = false;
+    // Per-effect-instance state. Using locals (not refs) is important: React
+    // StrictMode mounts → unmounts → remounts in dev, so two effect instances
+    // briefly overlap. Shared refs would let the throwaway instance clobber the
+    // real one's heartbeat/timer.
+    let closed = false;                                          // this effect instance was torn down
+    let heartbeat: ReturnType<typeof setInterval> | null = null; // this socket's keepalive
+    let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
 
     function connect() {
       const url = `${WS_URL}?room=${room}&role=${role}&name=${encodeURIComponent(name)}`;
@@ -32,6 +36,16 @@ export function useWebSocket(
       setStatus('connecting');
 
       ws.onopen = () => {
+        // If this effect was already torn down while the socket was still
+        // handshaking (StrictMode's mount→unmount→mount, or a fast route
+        // change), the socket opens too late. Close it immediately — otherwise
+        // it registers a $connect on the server and starts a heartbeat that
+        // nothing clears, leaving a live "ghost" connection forever.
+        if (closed) {
+          ws.close();
+          return;
+        }
+
         setStatus('connected');
         backoffRef.current = 1000; // reset backoff on successful connection
 
@@ -40,7 +54,7 @@ export function useWebSocket(
 
         // Send a ping every 30s to keep the connection alive.
         // API Gateway closes idle connections after 10 minutes.
-        heartbeatRef.current = setInterval(() => {
+        heartbeat = setInterval(() => {
           if (ws.readyState === WebSocket.OPEN) {
             ws.send(JSON.stringify({ type: 'ping' }));
           }
@@ -57,17 +71,19 @@ export function useWebSocket(
       };
 
       ws.onclose = () => {
-        setStatus('disconnected');
-
-        if (heartbeatRef.current) {
-          clearInterval(heartbeatRef.current);
+        // Always stop this socket's heartbeat so it can never outlive the socket.
+        if (heartbeat) {
+          clearInterval(heartbeat);
+          heartbeat = null;
         }
 
-        if (unmountedRef.current) return; // component unmounted — do not reconnect
+        if (closed) return; // torn down — do not reconnect
+
+        setStatus('disconnected');
 
         // Reconnect with exponential backoff, capped at 30s
-        setTimeout(() => {
-          if (!unmountedRef.current) {
+        reconnectTimer = setTimeout(() => {
+          if (!closed) {
             backoffRef.current = Math.min(backoffRef.current * 2, MAX_BACKOFF_MS);
             connect();
           }
@@ -77,10 +93,11 @@ export function useWebSocket(
 
     connect();
 
-    // Cleanup: close the connection when the component unmounts
+    // Cleanup: fully tear down when the component unmounts or deps change.
     return () => {
-      unmountedRef.current = true;
-      if (heartbeatRef.current) clearInterval(heartbeatRef.current);
+      closed = true;
+      if (heartbeat) clearInterval(heartbeat);
+      if (reconnectTimer) clearTimeout(reconnectTimer);
       wsRef.current?.close();
     };
   }, [room, role, name]); // reconnect if any of these change

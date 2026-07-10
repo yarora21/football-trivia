@@ -33,11 +33,14 @@ def handler(event, context):
         'ttl': ttl,
     })
 
-    # Adds this person to the room's player list for broadcasting
+    # Adds this person to the room's player list for broadcasting.
+    # `role` is stored here so the game loop can count actual players
+    # (excluding the host) from live data rather than a running counter.
     table.put_item(Item={
         'pk': f'ROOM#{room_code}',
         'sk': f'PLAYER#{connection_id}',
         'display_name': name,
+        'role': role,
         'joined_at': int(time.time() * 1000),
         'ttl': ttl,
     })

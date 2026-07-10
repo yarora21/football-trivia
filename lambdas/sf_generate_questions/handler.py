@@ -48,7 +48,7 @@ Output ONLY the JSON object. No other text."""
 
 def handler(event, context):
     topic = event.get('topic', '')
-    question_count = int(event.get('question_count', 10))
+    question_count = int(event.get('question_count', 5))
     grounding_facts = event.get('grounding_facts', '')
 
     user_message = _USER_PROMPT.format(

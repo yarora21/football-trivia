@@ -3,6 +3,7 @@ import os
 import time
 import boto3
 import redis
+from boto3.dynamodb.conditions import Key
 from aws_xray_sdk.core import patch_all, xray_recorder
 
 patch_all()
@@ -90,12 +91,32 @@ def handler(event, context):
         'ttl': int(time.time()) + TTL_SECONDS,
     })
 
-    # Check if all players have answered
+    # Check if all players have answered.
+    #
+    # We derive the set of players from live data (the PLAYER# rows that exist
+    # right now) rather than a maintained `player_count` counter. That counter
+    # is a running +1/-1 tally on connect/disconnect, so a single lost
+    # $disconnect (a dropped socket, a hard refresh) leaves it permanently high
+    # and the "everyone answered" check can never fire — the game then only ever
+    # advances on the 15s fallback timer. Reading ground truth self-heals: a
+    # player who has left no longer has a PLAYER# row, so they can't block the
+    # round. The host is excluded via the stored `role`.
+    resp = table.query(
+        KeyConditionExpression=Key('pk').eq(f'ROOM#{room_code}') & Key('sk').begins_with('PLAYER#'),
+        ProjectionExpression='sk, #r',
+        ExpressionAttributeNames={'#r': 'role'},
+    )
+    player_ids = {
+        item['sk'].split('PLAYER#', 1)[1]
+        for item in resp.get('Items', [])
+        if item.get('role') == 'player'
+    }
+
     with xray_recorder.in_subsegment('Redis') as subseg:
-        subseg.put_metadata('operation', 'SCARD')
-        answer_count = redis_client.scard(answered_key)
-    player_count = int(room.get('player_count', 0))
-    all_answered = player_count > 0 and answer_count >= player_count
+        subseg.put_metadata('operation', 'SMEMBERS')
+        answered = redis_client.smembers(answered_key)
+
+    all_answered = len(player_ids) > 0 and player_ids.issubset(answered)
 
     return {
         'is_correct': is_correct,

@@ -22,7 +22,7 @@ def _generate_code() -> str:
 def handler(event, context):
     body = json.loads(event.get('body') or '{}')
     topic = body.get('topic', '').strip()
-    question_count = int(body.get('question_count', 10))
+    question_count = int(body.get('question_count', 5))
 
     if not topic:
         return {

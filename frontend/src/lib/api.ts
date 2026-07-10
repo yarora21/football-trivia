@@ -1,6 +1,6 @@
 const HTTP_URL = import.meta.env.VITE_HTTP_URL as string;
 
-export async function createRoom(topic: string, questionCount = 10): Promise<string> {
+export async function createRoom(topic: string, questionCount = 5): Promise<string> {
   const res = await fetch(`${HTTP_URL}/rooms`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
