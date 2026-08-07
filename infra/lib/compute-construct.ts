@@ -179,6 +179,11 @@ export class ComputeConstruct extends Construct {
     });
     props.table.grantReadWriteData(this.gameBroadcastFn);
 
+    // sf_persist_questions pushes room.ready via the broadcast Lambda once
+    // questions are stored, so the host page updates without a manual refresh.
+    this.sfPersistQuestionsFn.addEnvironment('BROADCAST_FN_NAME', this.gameBroadcastFn.functionName);
+    this.gameBroadcastFn.grantInvoke(this.sfPersistQuestionsFn);
+
     // DLQ for messages that fail processing 3 times
     this.deadLetterQueue = new sqs.Queue(this, 'AdvanceDLQ', {
       queueName: 'trivia-advance-round-dlq',

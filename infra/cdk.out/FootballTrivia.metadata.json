@@ -380,7 +380,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Queue2 in aws-cdk-lib...",
-        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:183:28)",
+        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:188:28)",
         "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:15:21)",
         "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
@@ -396,7 +396,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Queue2 in aws-cdk-lib...",
-        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:189:25)",
+        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:194:25)",
         "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:15:21)",
         "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
@@ -412,7 +412,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Function2 in aws-cdk-lib...",
-        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:198:31)",
+        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:203:31)",
         "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:15:21)",
         "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
@@ -1166,7 +1166,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Function2 in aws-cdk-lib...",
-        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:198:31)",
+        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:203:31)",
         "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:15:21)",
         "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
@@ -1182,7 +1182,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addEventSource in aws-cdk-lib...",
-        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:213:29)",
+        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:218:29)",
         "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:15:21)",
         "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."
@@ -1586,7 +1586,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Function2 in aws-cdk-lib...",
-        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:198:31)",
+        "new ComputeConstruct (/Users/yasharora/Documents/football-trvia/infra/lib/compute-construct.ts:203:31)",
         "new TriviaStack (/Users/yasharora/Documents/football-trvia/infra/lib/trivia-stack.ts:15:21)",
         "<anonymous> (/Users/yasharora/Documents/football-trvia/infra/bin/app.ts:7:1)",
         "...node internals, ts-node, ts-node, ts-node..."

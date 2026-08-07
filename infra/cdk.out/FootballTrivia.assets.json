@@ -16,16 +16,16 @@
         }
       }
     },
-    "3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0": {
+    "da9bb7f1cb170a111f792e1d47fc98aaa92079b338201acf32b34c1a38b88e94": {
       "displayName": "Compute/WsConnectFunction/Code",
       "source": {
-        "path": "asset.3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0",
+        "path": "asset.da9bb7f1cb170a111f792e1d47fc98aaa92079b338201acf32b34c1a38b88e94",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-70be707f": {
+        "666458383077-us-east-1-10b06a6f": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0.zip",
+          "objectKey": "da9bb7f1cb170a111f792e1d47fc98aaa92079b338201acf32b34c1a38b88e94.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
@@ -76,16 +76,16 @@
         }
       }
     },
-    "a7138dd2c41fe5c6655b79a5a442cf41613b5d8e467f3e2fb2a0056395726e36": {
+    "52d15b4add72ca00e6bd5c98a992fad0a5dcc8891664b8669ca82be4a80f0d35": {
       "displayName": "Compute/SfGenerateQuestionsFunction/Code",
       "source": {
-        "path": "asset.a7138dd2c41fe5c6655b79a5a442cf41613b5d8e467f3e2fb2a0056395726e36",
+        "path": "asset.52d15b4add72ca00e6bd5c98a992fad0a5dcc8891664b8669ca82be4a80f0d35",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-11f9de2b": {
+        "666458383077-us-east-1-b6cfec4e": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "a7138dd2c41fe5c6655b79a5a442cf41613b5d8e467f3e2fb2a0056395726e36.zip",
+          "objectKey": "52d15b4add72ca00e6bd5c98a992fad0a5dcc8891664b8669ca82be4a80f0d35.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
@@ -106,16 +106,16 @@
         }
       }
     },
-    "37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0": {
+    "cff8220e6d5f54c445463764d8c3dcd7c2f767fed6ba66fdfcda97938323940e": {
       "displayName": "Compute/SfPersistQuestionsFunction/Code",
       "source": {
-        "path": "asset.37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0",
+        "path": "asset.cff8220e6d5f54c445463764d8c3dcd7c2f767fed6ba66fdfcda97938323940e",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-58ac76f0": {
+        "666458383077-us-east-1-88cd0030": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0.zip",
+          "objectKey": "cff8220e6d5f54c445463764d8c3dcd7c2f767fed6ba66fdfcda97938323940e.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
@@ -136,76 +136,76 @@
         }
       }
     },
-    "2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f": {
+    "5d5029b2e6676640865b330fafcb5924c37ec262d5ed1e83d23b30816ca68d4b": {
       "displayName": "Compute/GameScoreAnswerFunction/Code",
       "source": {
-        "path": "asset.2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f",
+        "path": "asset.5d5029b2e6676640865b330fafcb5924c37ec262d5ed1e83d23b30816ca68d4b",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-0e19f5b3": {
+        "666458383077-us-east-1-5cd967d3": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f.zip",
+          "objectKey": "5d5029b2e6676640865b330fafcb5924c37ec262d5ed1e83d23b30816ca68d4b.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79": {
+    "217008a7ddf7f432cb6388d20c794f33824b9dbeda57d46f65a1d59498a15513": {
       "displayName": "Compute/GameBroadcastFunction/Code",
       "source": {
-        "path": "asset.b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79",
+        "path": "asset.217008a7ddf7f432cb6388d20c794f33824b9dbeda57d46f65a1d59498a15513",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-56255283": {
+        "666458383077-us-east-1-e89fad39": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79.zip",
+          "objectKey": "217008a7ddf7f432cb6388d20c794f33824b9dbeda57d46f65a1d59498a15513.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce": {
+    "da88c62d10b3a58083f2fba491d1c42972a69e3a004dbb936be8ad33e7b016bf": {
       "displayName": "Compute/GameAdvanceRoundFunction/Code",
       "source": {
-        "path": "asset.abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce",
+        "path": "asset.da88c62d10b3a58083f2fba491d1c42972a69e3a004dbb936be8ad33e7b016bf",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-30960141": {
+        "666458383077-us-east-1-f4b2234c": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce.zip",
+          "objectKey": "da88c62d10b3a58083f2fba491d1c42972a69e3a004dbb936be8ad33e7b016bf.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b": {
+    "a343c6b5d659c39594cd4946f102f4262f5053e004bc95dacedf790685e73bed": {
       "displayName": "Api/HttpCreateRoomFunction/Code",
       "source": {
-        "path": "asset.9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b",
+        "path": "asset.a343c6b5d659c39594cd4946f102f4262f5053e004bc95dacedf790685e73bed",
         "packaging": "zip"
       },
       "destinations": {
-        "666458383077-us-east-1-688ae923": {
+        "666458383077-us-east-1-0b0eb384": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b.zip",
+          "objectKey": "a343c6b5d659c39594cd4946f102f4262f5053e004bc95dacedf790685e73bed.zip",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }
       }
     },
-    "ca968e4b230343365ac9dee68ff772fc7c53ca31a112eeac1c028ebeb4bea3c0": {
+    "38498f63f1579c48d18d28ad503edfa5c7ed24543404335e4a6999a330b4c111": {
       "displayName": "FootballTrivia Template",
       "source": {
         "path": "FootballTrivia.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "666458383077-us-east-1-90318e28": {
+        "666458383077-us-east-1-7157b2b3": {
           "bucketName": "cdk-hnb659fds-assets-666458383077-us-east-1",
-          "objectKey": "ca968e4b230343365ac9dee68ff772fc7c53ca31a112eeac1c028ebeb4bea3c0.json",
+          "objectKey": "38498f63f1579c48d18d28ad503edfa5c7ed24543404335e4a6999a330b4c111.json",
           "region": "us-east-1",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::666458383077:role/cdk-hnb659fds-file-publishing-role-666458383077-us-east-1"
         }

@@ -687,7 +687,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0.zip"
+     "S3Key": "da9bb7f1cb170a111f792e1d47fc98aaa92079b338201acf32b34c1a38b88e94.zip"
     },
     "Environment": {
      "Variables": {
@@ -721,7 +721,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/WsConnectFunction/Resource",
-    "aws:asset:path": "asset.3b26fd20e9285e65b6cf9b1696668651bd324a7064097bf903e37f87042d89c0",
+    "aws:asset:path": "asset.da9bb7f1cb170a111f792e1d47fc98aaa92079b338201acf32b34c1a38b88e94",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1240,7 +1240,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "a7138dd2c41fe5c6655b79a5a442cf41613b5d8e467f3e2fb2a0056395726e36.zip"
+     "S3Key": "52d15b4add72ca00e6bd5c98a992fad0a5dcc8891664b8669ca82be4a80f0d35.zip"
     },
     "FunctionName": "trivia-sf-generate-questions",
     "Handler": "handler.handler",
@@ -1267,7 +1267,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/SfGenerateQuestionsFunction/Resource",
-    "aws:asset:path": "asset.a7138dd2c41fe5c6655b79a5a442cf41613b5d8e467f3e2fb2a0056395726e36",
+    "aws:asset:path": "asset.52d15b4add72ca00e6bd5c98a992fad0a5dcc8891664b8669ca82be4a80f0d35",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1427,6 +1427,32 @@
          "Arn"
         ]
        }
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "ComputeGameBroadcastFunctionDD19B898",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "ComputeGameBroadcastFunctionDD19B898",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
       }
      ],
      "Version": "2012-10-17"
@@ -1447,12 +1473,15 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0.zip"
+     "S3Key": "cff8220e6d5f54c445463764d8c3dcd7c2f767fed6ba66fdfcda97938323940e.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "DataTriviaTable5DE02139"
+      },
+      "BROADCAST_FN_NAME": {
+       "Ref": "ComputeGameBroadcastFunctionDD19B898"
       }
      }
     },
@@ -1481,7 +1510,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/SfPersistQuestionsFunction/Resource",
-    "aws:asset:path": "asset.37d3e89024f5bedca576af55552cfd78037b9754952b103554651f93c7dde8a0",
+    "aws:asset:path": "asset.cff8220e6d5f54c445463764d8c3dcd7c2f767fed6ba66fdfcda97938323940e",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1716,7 +1745,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f.zip"
+     "S3Key": "5d5029b2e6676640865b330fafcb5924c37ec262d5ed1e83d23b30816ca68d4b.zip"
     },
     "Environment": {
      "Variables": {
@@ -1776,7 +1805,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/GameScoreAnswerFunction/Resource",
-    "aws:asset:path": "asset.2c8834eb360fa633a1045c273604d2fee811af1ddb1bef01c56dd1a6ec79544f",
+    "aws:asset:path": "asset.5d5029b2e6676640865b330fafcb5924c37ec262d5ed1e83d23b30816ca68d4b",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -1890,7 +1919,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79.zip"
+     "S3Key": "217008a7ddf7f432cb6388d20c794f33824b9dbeda57d46f65a1d59498a15513.zip"
     },
     "Environment": {
      "Variables": {
@@ -1936,7 +1965,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/GameBroadcastFunction/Resource",
-    "aws:asset:path": "asset.b1014e67464defcd37718b62e9c5b5a7d633fb8cb6509d53b5e2d7d963ac5c79",
+    "aws:asset:path": "asset.217008a7ddf7f432cb6388d20c794f33824b9dbeda57d46f65a1d59498a15513",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -2126,7 +2155,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce.zip"
+     "S3Key": "da88c62d10b3a58083f2fba491d1c42972a69e3a004dbb936be8ad33e7b016bf.zip"
     },
     "Environment": {
      "Variables": {
@@ -2192,7 +2221,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Compute/GameAdvanceRoundFunction/Resource",
-    "aws:asset:path": "asset.abd5cf7d79d2c93e829caf37a82086e555ddc10f6440db71f01f2114aa554cce",
+    "aws:asset:path": "asset.da88c62d10b3a58083f2fba491d1c42972a69e3a004dbb936be8ad33e7b016bf",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -2944,7 +2973,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-666458383077-us-east-1",
-     "S3Key": "9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b.zip"
+     "S3Key": "a343c6b5d659c39594cd4946f102f4262f5053e004bc95dacedf790685e73bed.zip"
     },
     "Environment": {
      "Variables": {
@@ -2981,7 +3010,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "FootballTrivia/Api/HttpCreateRoomFunction/Resource",
-    "aws:asset:path": "asset.9ac73772f3d2801e96e4616d91bcfb61b9caca667028d29c63e10fc9491abd9b",
+    "aws:asset:path": "asset.a343c6b5d659c39594cd4946f102f4262f5053e004bc95dacedf790685e73bed",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }

@@ -1,3 +1,4 @@
+import json
 import os
 import time
 import boto3
@@ -7,6 +8,9 @@ patch_all()
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(os.environ['TABLE_NAME'])
+
+lambda_client = boto3.client('lambda')
+BROADCAST_FN_NAME = os.environ.get('BROADCAST_FN_NAME', '')
 
 
 def handler(event, context):
@@ -33,5 +37,23 @@ def handler(event, context):
         ExpressionAttributeNames={'#s': 'status'},
         ExpressionAttributeValues={':s': 'ready'},
     )
+
+    # Proactively push room.ready to the room's connections so the host page
+    # renders the Start Game button on its own. Without this the host stays on
+    # "Generating questions..." until they manually refresh (which reconnects
+    # and re-runs room.check). The host is stored as a PLAYER# row, so a
+    # room-wide broadcast reaches it.
+    if BROADCAST_FN_NAME:
+        lambda_client.invoke(
+            FunctionName=BROADCAST_FN_NAME,
+            InvocationType='Event',  # async — don't block the Step Function
+            Payload=json.dumps({
+                'room_code': room_code,
+                'message': {
+                    'type': 'room.ready',
+                    'question_count': len(questions),
+                },
+            }).encode('utf-8'),
+        )
 
     return event
